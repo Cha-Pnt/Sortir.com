@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccueilController!{% endblock %}
+
+{% block body %}
+    <div class="date-nom">
+        <p>Date du jour : {{ 'now' |date('d/m/Y') }}<br>
+        Participant : {# to do : ajouter le nom du participant #}</p>
+    </div>
+
+    <form action="GET">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h3>Filtrer les sorties</h3>
+                    <label for="campus">Campus</label>
+                    <select id="campus">
+                    </select><br><br>
+                    <label for="search">Le nom de la sortie contient : </label><input type="search"><br><br>
+                    <label for="date">Entre </label><input type="date"><label for="date"> Et </label><input type="date">
+                </div>
+                <div class="col">
+                    <input type="checkbox" name="organisateur"><label for="organisateur">Sorties dont je suis l'organisateur/trice</label><br>
+                    <input type="checkbox" name="inscrit"><label for="inscrit">Sorties auxquelles je suis inscrit/e</label><br>
+                    <input type="checkbox" name="non-inscrit"><label for="non-inscrit">Sorties auxquelles je ne suis pas inscrit/e</label><br>
+                    <input type="checkbox" name="passées"><label for="passées">Sorties passées</label>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-primary btn-lg">Rechercher</button>
+                </div>
+            </div>
+        </div>
+        <div class="recherche">
+
+        </div>
+
+        <div class="choix">
+
+        </div>
+
+        <div class="bouton-recherche">
+
+        </div>
+    </form>
+
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <input type="button" value="Créer une sortie">
+    </div>
+
+{% endblock %}

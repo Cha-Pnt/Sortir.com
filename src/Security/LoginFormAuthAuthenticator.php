@@ -84,6 +84,8 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param $credentials
+     * @return string|null
      */
     public function getPassword($credentials): ?string
     {
@@ -96,7 +98,7 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        return new RedirectRoute($this->urlGenerator->generate('some_route'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

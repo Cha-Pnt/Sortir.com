@@ -13,8 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
  * @UniqueEntity(
- *     fields={"pseudo","mail"},
- *     message="L'identifiant est déjà utilisé.")
+ *     fields={"nom", "prenom", "mail","pseudo"},
+ *     message="L'utilisateur existe déjà")
  */
 class Participant implements UserInterface
 {
@@ -52,7 +52,10 @@ class Participant implements UserInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Email(
+     *     message="L'email n'est pas valide"
+     * )
      */
     private $mail;
 

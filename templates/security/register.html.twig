@@ -2,6 +2,7 @@
 
 {% block title %}Register{% endblock %}
  {% block body %}
+     <a href="{{ path('app_logout') }}">Logout</a>
 
      {{ form_start(registrationUser) }}
      <button type="submit">Valider</button>

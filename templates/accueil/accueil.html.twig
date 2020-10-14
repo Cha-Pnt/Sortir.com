@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %} Accueil {% endblock %}
 
 {% block body %}
     <div class="date-nom">
@@ -9,6 +9,7 @@
     </div>
 
     <div>
+        <h3>Filtrer les sorties</h3>
         {{ form_start(rechercherForm) }}
 
         {{ form_widget(rechercherForm) }}

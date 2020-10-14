@@ -4,10 +4,11 @@ namespace App\Repository;
 
 use App\Entity\Participant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -25,6 +26,10 @@ class ParticipantRepository extends ServiceEntityRepository  implements UserLoad
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param UserInterface $user
+     * @param string $newEncodedPassword
+     * @throws ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -40,13 +45,15 @@ class ParticipantRepository extends ServiceEntityRepository  implements UserLoad
     public function loadUserByUsername($name)
     {
         $em = $this->getEntityManager();
-        return
-            $em->createQuery('SELECT p 
-    FROM app\Entity\Participant  p 
-    WHERE p.pseudo = :query
-        OR p.mail = :query')
-                ->setParameter('query', $name)
-                ->getOneOrNullResult();
+        try {
+            return
+                $em->createQuery('SELECT p FROM app\Entity\Participant  p 
+                    WHERE p.pseudo = :query
+                    OR p.mail = :query')
+                    ->setParameter('query', $name)
+                    ->getOneOrNullResult();
+        } catch (NonUniqueResultException $e) {
+        }
     }
 
     // /**

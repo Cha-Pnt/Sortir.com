@@ -8,40 +8,14 @@
         Participant : {# to do : ajouter le nom du participant #}</p>
     </div>
 
-    <form action="GET">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h3>Filtrer les sorties</h3>
-                    <label for="campus">Campus</label>
-                    <select id="campus">
-                    </select><br><br>
-                    <label for="search">Le nom de la sortie contient : </label><input type="search"><br><br>
-                    <label for="date">Entre </label><input type="date"><label for="date"> Et </label><input type="date">
-                </div>
-                <div class="col">
-                    <input type="checkbox" name="organisateur"><label for="organisateur">Sorties dont je suis l'organisateur/trice</label><br>
-                    <input type="checkbox" name="inscrit"><label for="inscrit">Sorties auxquelles je suis inscrit/e</label><br>
-                    <input type="checkbox" name="non-inscrit"><label for="non-inscrit">Sorties auxquelles je ne suis pas inscrit/e</label><br>
-                    <input type="checkbox" name="passées"><label for="passées">Sorties passées</label>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-primary btn-lg">Rechercher</button>
-                </div>
-            </div>
-        </div>
-        <div class="recherche">
+    <div>
+        {{ form_start(rechercherForm) }}
 
-        </div>
+        {{ form_widget(rechercherForm) }}
 
-        <div class="choix">
-
-        </div>
-
-        <div class="bouton-recherche">
-
-        </div>
-    </form>
+        <button type="button" class="btn btn-primary btn-lg">Rechercher</button>
+        {{ form_end(rechercherForm) }}
+    </div>
 
     <table class="table">
         <thead class="thead-light">
@@ -58,24 +32,24 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row"></th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th scope="row">Philo</th>
+            <td>20/10/2020 20:30</td>
+            <td>20/10/2020</td>
+            <td>3/8</td>
+            <td>En cours</td>
+            <td>X</td>
+            <td>Spinoz A.</td>
+            <td><a href="#">Afficher</a></td>
         </tr>
         <tr>
-            <th scope="row"></th>
+            <th scope="row">Concert métal</th>
+            <td>17/10/2020 20:30</td>
+            <td>17/10/2020</td>
+            <td>10/10</td>
+            <td>Ouvert</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>Raymond D.</td>
+            <td>Afficher - Se Désister</td>
         </tr>
         </tbody>
     </table>

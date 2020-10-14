@@ -48,7 +48,7 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'identifiant' => $request->request->get('identifiant'),
+            'name' => $request->request->get('name'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
@@ -67,11 +67,11 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(Participant::class)->findOneBy(['name' => $credentials['name']]);
+        $user = $this->entityManager->getRepository(Participant::class)->loadUserByUsername($credentials['name']);
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Identifiant inconnu');
+            throw new CustomUserMessageAuthenticationException('Le pseudo n\'est pas reconnu');
         }
 
         return $user;
@@ -84,6 +84,8 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param $credentials
+     * @return string|null
      */
     public function getPassword($credentials): ?string
     {
@@ -96,7 +98,7 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        return new RedirectRoute($this->urlGenerator->generate('some_route'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

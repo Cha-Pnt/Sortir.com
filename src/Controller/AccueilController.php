@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends AbstractController
 {
+
+
     /**
      * @Route("/accueil", name="accueil")
      */
@@ -22,4 +24,13 @@ class AccueilController extends AbstractController
             "rechercherForm" => $rechercherForm -> createView()
         ]);
     }
+
+    ///**
+     //* @Route("/accueil", name="accueil")
+     //*/
+    //public function afficherSortie()
+    //{
+
+    //}
+
 }

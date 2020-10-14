@@ -6,10 +6,15 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
+ * @UniqueEntity(
+ *     fields={"nom", "prenom", "mail","pseudo"},
+ *     message="L'utilisateur existe déjà")
  */
 class Participant implements UserInterface
 {
@@ -47,7 +52,10 @@ class Participant implements UserInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Email(
+     *     message="L'email n'est pas valide"
+     * )
      */
     private $mail;
 
@@ -74,6 +82,7 @@ class Participant implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=30, unique=true)
+     *
      */
     private $pseudo;
 

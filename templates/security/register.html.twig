@@ -1,0 +1,9 @@
+{% extends 'base.html.twig'%}
+
+{% block title %}Register{% endblock %}
+ {% block body %}
+
+     {{ form_start(registrationUser) }}
+     <button type="submit">Valider</button>
+     {{ form_end(registrationUser) }}
+ {% endblock %}

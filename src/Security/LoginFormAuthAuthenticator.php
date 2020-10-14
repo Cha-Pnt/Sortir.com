@@ -48,7 +48,7 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'identifiant' => $request->request->get('identifiant'),
+            'name' => $request->request->get('name'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
@@ -67,11 +67,11 @@ class LoginFormAuthAuthenticator extends AbstractFormLoginAuthenticator implemen
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(Participant::class)->findOneBy(['name' => $credentials['name']]);
+        $user = $this->entityManager->getRepository(Participant::class)->loadUserByUsername($credentials['name']);
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Identifiant inconnu');
+            throw new CustomUserMessageAuthenticationException('Le pseudo n\'est pas reconnu');
         }
 
         return $user;

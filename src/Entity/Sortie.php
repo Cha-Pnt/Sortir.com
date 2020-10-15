@@ -113,7 +113,7 @@ class Sortie
         return $this->dateHeureDebut;
     }
 
-    public function setDateHeureDebut(DateTimeInterface $dateHeureDebut): self
+    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
     {
         $this->dateHeureDebut = $dateHeureDebut;
 

@@ -23,9 +23,9 @@ class SortieRepository extends ServiceEntityRepository
     public function findByParametres($parametres, $user){
 
         //Récupération des données du formulaire
-        $campus = $parametres['campus'];
+        $camp=$parametres['campus'];
         $titre = $parametres['nom'];
-        $dateHeureDebut =$parametres['dateHeureDebut'];
+        $dateHeureDebut =$parametres['date_HeureDebut'];
         $dateLimite=$parametres['dateLimite'];
         $organisateur=$parametres['organisateur'];
         $inscrit=$parametres['inscrit'];
@@ -33,33 +33,38 @@ class SortieRepository extends ServiceEntityRepository
         $etat=$parametres['etat'];
 
         $qb = $this->createQueryBuilder('s');
-        if($campus='All') {
+        if($camp='All') {
             $qb->select('*')
                 ->from('Sortie','s');
         }else {
             $qb->select('s')
                 ->from('sortie','s')
                 ->where('s.campus = :campus')
-                ->setParameter('campus',$campus);
+                ->setParameter('campus',$camp);
         }
-        if($titre){
+        if($titre) {
             $qb->andWhere('s.nom = :titre')
-                ->setParameter('titre',$titre);
-            if($dateHeureDebut && $dateLimite) {
+                ->setParameter('titre', $titre);
+        }
+        if($dateHeureDebut && $dateLimite) {
            $qb->andWhere('s.dateHeureDebut BETWEEN ?1 AND ?2')
                 ->setParameters(array($dateHeureDebut,$dateLimite));
-        }if($organisateur) {
+        }
+        if($organisateur) {
             $qb->andWhere('s.organisateur = :organisateur')
                 ->setParameter('organisateur', $user);
-        }if($inscrit){
+        }
+        if($inscrit){
             $inscrit = $user->getInscription();
             $qb->andWhere('s.inscription = :inscriptionUser')
                 ->setParameter('inscriptionUser',$inscrit);
-        }if($nonInscrit) {
+        }
+        if($nonInscrit) {
             $inscrit = $user->getInscription();
             $qb->andWhere('s.inscription != :inscriptionUser')
                 ->setParameter('inscriptionUser', $inscrit);
-        }if($etat){
+        }
+        if($etat){
             $qb->andWhere('s.inscription != :inscriptionUser')
                 ->setParameter('inscriptionUser', $inscrit);
         }

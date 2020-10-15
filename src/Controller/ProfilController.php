@@ -2,18 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Campus;
 use App\Entity\Participant;
 
 
 use App\Form\ProfilFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 class ProfilController extends AbstractController
 {
     /**
@@ -38,7 +35,7 @@ class ProfilController extends AbstractController
             $user->setActif(true);
             $em->persist($user);
             $em->flush();
-            return $this->Redirect('profil');
+            return $this->Redirect('afficherProfil/'.$user->getId());
         }
         return $this->render('profil/index.html.twig', [
             'controller_name' => 'ProfilController',
@@ -46,9 +43,12 @@ class ProfilController extends AbstractController
         ]);
     }
     /**
-     * @Route("/AfficherProfil", name="profil")
+     * @Route("profil/afficherProfil/{id}", name="profil")
      */
-    public function afficherProfil(){
-        return $this->render('profil/afficherProfil.html.twig');
+    public function afficherProfil(Participant $user){
+        return $this->render('profil/afficherProfil.html.twig', [
+            'user' => $user
+        ]);
+
     }
 }

@@ -21,8 +21,8 @@ class UserRegistrationType extends AbstractType
             ->add('phone')
             ->add('mail')
             ->add('pseudo')
-            ->add('administrateur', CheckboxType::class,array('label'=>'Est-ce un administrateur ?',
-                'required'=>false))
+            ->add('administrateur',
+                CheckboxType::class,array('label'=>'Est-ce un administrateur ?', 'required'=>false))
             ->add('campus',EntityType::class,['class'=>Campus::class]
             );
     }

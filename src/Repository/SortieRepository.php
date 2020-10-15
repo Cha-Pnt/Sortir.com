@@ -19,8 +19,51 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function findByParametres($parametres){
+    //Récupère les sorties selon les critères de recherche
+    public function findByParametres($parametres, $user){
 
+        //Récupération des données du formulaire
+        $campus = $parametres['campus'];
+        $titre = $parametres['nom'];
+        $dateHeureDebut =$parametres['dateHeureDebut'];
+        $dateLimite=$parametres['dateLimite'];
+        $organisateur=$parametres['organisateur'];
+        $inscrit=$parametres['inscrit'];
+        $nonInscrit=$parametres['nonInscrit'];
+        $etat=$parametres['etat'];
+
+        $qb = $this->createQueryBuilder('s');
+        if($campus='All') {
+            $qb->select('*')
+                ->from('Sortie','s');
+        }else {
+            $qb->select('s')
+                ->from('sortie','s')
+                ->where('s.campus = :campus')
+                ->setParameter('campus',$campus);
+        }
+        if($titre){
+            $qb->andWhere('s.nom = :titre')
+                ->setParameter('titre',$titre);
+            if($dateHeureDebut && $dateLimite) {
+           $qb->andWhere('s.dateHeureDebut BETWEEN ?1 AND ?2')
+                ->setParameters(array($dateHeureDebut,$dateLimite));
+        }if($organisateur) {
+            $qb->andWhere('s.organisateur = :organisateur')
+                ->setParameter('organisateur', $user);
+        }if($inscrit){
+            $inscrit = $user->getInscription();
+            $qb->andWhere('s.inscription = :inscriptionUser')
+                ->setParameter('inscriptionUser',$inscrit);
+        }if($nonInscrit) {
+            $inscrit = $user->getInscription();
+            $qb->andWhere('s.inscription != :inscriptionUser')
+                ->setParameter('inscriptionUser', $inscrit);
+        }if($etat){
+            $qb->andWhere('s.inscription != :inscriptionUser')
+                ->setParameter('inscriptionUser', $inscrit);
+        }
+       return $qb->getQuery()->getResult();
     }
 
     // /**

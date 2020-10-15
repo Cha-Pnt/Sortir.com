@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -90,12 +91,12 @@ class Sortie
         return $this;
     }
 
-    public function getDateHeureDebut(): ?\DateTimeInterface
+    public function getDateHeureDebut(): ?DateTimeInterface
     {
         return $this->dateHeureDebut;
     }
 
-    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
+    public function setDateHeureDebut(DateTimeInterface $dateHeureDebut): self
     {
         $this->dateHeureDebut = $dateHeureDebut;
 
@@ -114,12 +115,12 @@ class Sortie
         return $this;
     }
 
-    public function getDateLimite(): ?\DateTimeInterface
+    public function getDateLimite(): ?DateTimeInterface
     {
         return $this->dateLimite;
     }
 
-    public function setDateLimite(\DateTimeInterface $dateLimite): self
+    public function setDateLimite(DateTimeInterface $dateLimite): self
     {
         $this->dateLimite = $dateLimite;
 

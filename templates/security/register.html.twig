@@ -1,13 +1,96 @@
 {% extends 'base.html.twig'%}
 
-{% block title %}Register{% endblock %}
+{% block title %}Enregistrer un participant | Sortir.com {% endblock %}
+{% block head %} <link rel="stylesheet" href="css/register.css"> {% endblock %}
 
  {% block body %}
 
-     <a href="{{ path('app_logout') }}">Logout</a>
+     <div class="container">
+         <form method="post" class="form">
+             <h1>Enregistrer un utilisateur</h1><br><br>
+             <div class="row">
+                 <div class="col-3">
+                     {{ form_label(registrationUser.nom) }}
+                 </div>
+                 <div class="col-9">
+                     {{ form_widget(registrationUser.nom) }}
+                 </div>
+             </div>
+             <br>
 
-     {{ form_start(registrationUser) }}
-     <button type="submit">Valider</button>
-     {{ form_end(registrationUser) }}
+             <div class="row">
+                 <div class="col-3">
+                     {{ form_label(registrationUser.prenom) }}
+                 </div>
+                 <div class="col-9">
+                     {{ form_widget(registrationUser.prenom) }}
+                 </div>
+             </div>
+             <br>
+
+             <div class="row">
+                 <div class="col-3">
+                     {{ form_label(registrationUser.password) }}
+                 </div>
+                 <div class="col-9">
+                     {{ form_widget(registrationUser.password) }}
+                 </div>
+             </div>
+             <br>
+
+             <div class="row">
+                 <div class="col-3">
+                     {{ form_label(registrationUser.phone) }}
+                 </div>
+                 <div class="col-9">
+                     {{ form_widget(registrationUser.phone) }}
+                 </div>
+             </div>
+             <br>
+
+             <div class="row">
+                 <div class="col-3">
+                     {{ form_label(registrationUser.mail) }}
+                 </div>
+                 <div class="col-9">
+                     {{ form_widget(registrationUser.mail) }}
+                 </div>
+             </div>
+             <br>
+
+             <div class="row">
+                 <div class="col-3">
+                     {{ form_label(registrationUser.pseudo) }}
+                 </div>
+                 <div class="col-9">
+                     {{ form_widget(registrationUser.pseudo) }}
+                 </div>
+             </div>
+             <br>
+
+             <div class="row">
+                 <div class="col-6">
+                     {{ form_label(registrationUser.administrateur) }}
+                 </div>
+                 <div class="col-6">
+                     {{ form_widget(registrationUser.administrateur) }}
+                 </div>
+             </div>
+             <br>
+
+             <div class="row">
+                 <div class="col-3">
+                     {{ form_label(registrationUser.campus) }}
+                 </div>
+                 <div class="col-9">
+                     {{ form_widget(registrationUser.campus) }}
+                 </div>
+             </div>
+             <br>
+
+             <button type="submit" class="btn btn-primary">Valider</button>
+         </form>
+     </div>
+
 
  {% endblock %}

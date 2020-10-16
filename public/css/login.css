@@ -1,11 +1,14 @@
 .container{
     display: flex;
     justify-content: center;
-    width: 100%;
+
 }
 
 .form{
-    display: flex;
-    justify-content: center;
-    width: 40%;
+    width: 30%;
+}
+
+.group{
+    flex-direction: column;
+
 }

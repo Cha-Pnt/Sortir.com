@@ -1,6 +1,10 @@
-{% block title %}Sortie.com!{% endblock %}
+{% extends 'base.html.twig' %}
 
-<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+
+{% block title %}Login | Sortir.com{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="css/login.css">
+{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -36,7 +40,6 @@
                         <button class="btn btn-primary" type="submit">
                             Sign in
                         </button>
-                        <br><br>
                     </div>
 
                     <div class="checkbox mb-3">

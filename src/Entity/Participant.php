@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
  * @UniqueEntity(
- *     fields={"nom", "prenom", "mail","pseudo"},
+ *     fields={"pseudo"},
  *     message="L'utilisateur existe déjà")
  */
 class Participant implements UserInterface
@@ -78,6 +78,7 @@ class Participant implements UserInterface
     private $campus;
 
     /**
+     *
      * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="participant")
      */
     private $inscription;
@@ -107,7 +108,6 @@ class Participant implements UserInterface
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -286,6 +286,9 @@ class Participant implements UserInterface
 
         return $this;
     }
-
+    public function __toString()
+    {
+        return $this->getPseudo();
+    }
 
 }

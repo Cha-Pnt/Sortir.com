@@ -14,12 +14,13 @@
 
         {{ form_widget(rechercherForm) }}
 
-        <button type="button" class="btn btn-primary btn-lg">Rechercher</button>
+        <button type="submit" class="btn btn-primary btn-lg">Rechercher</button>
         {{ form_end(rechercherForm) }}
     </div>
 
     <table class="table">
         <thead class="thead-light">
+
         <tr>
             <th scope="col">Nom de la sortie</th>
             <th scope="col">Date de la sortie</th>
@@ -32,26 +33,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">Philo</th>
-            <td>20/10/2020 20:30</td>
-            <td>20/10/2020</td>
-            <td>3/8</td>
-            <td>En cours</td>
-            <td>X</td>
-            <td>Spinoz A.</td>
-            <td><a href="#">Afficher</a></td>
-        </tr>
-        <tr>
-            <th scope="row">Concert métal</th>
-            <td>17/10/2020 20:30</td>
-            <td>17/10/2020</td>
-            <td>10/10</td>
-            <td>Ouvert</td>
-            <td></td>
-            <td>Raymond D.</td>
-            <td>Afficher - Se Désister</td>
-        </tr>
+        {% for sortie in listeSorties %}
+            <tr>
+                <th scope="row">{{ sortie.nom }}</th>
+                <td>{{ sortie.dateHeureDebut|date('d-m-y mm:h') }}</td>
+                <td>{{ sortie.dateLimite|date('d-m-y mm:h') }}</td>
+                <td>{{ sortie.nbInscrits }}0/{{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.etat }}</td>
+                {# <td>{% if user. == sortie.inscriptions %} X {% else %} {% endif %}</td>#}
+                <td>{{ sortie.organisateur }}</td>
+                <td><a href="#">Afficher</a></td>
+            </tr>
+        {% endfor %}
+
         </tbody>
     </table>
 

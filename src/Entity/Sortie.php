@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\SortieRepository;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +74,21 @@ class Sortie
      */
     private $organisateur;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbInscrits;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="sortie")
+     */
+    private $inscriptions;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
+
 
 
     public function getId(): ?int
@@ -96,7 +113,7 @@ class Sortie
         return $this->dateHeureDebut;
     }
 
-    public function setDateHeureDebut(DateTimeInterface $dateHeureDebut): self
+    public function setDateHeureDebut(\DateTimeInterface $dateHeureDebut): self
     {
         $this->dateHeureDebut = $dateHeureDebut;
 
@@ -196,6 +213,49 @@ class Sortie
     public function setOrganisateur(?Participant $organisateur): self
     {
         $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getNbInscrits(): ?int
+    {
+        return $this->nbInscrits;
+    }
+
+    public function setNbInscrits(?int $nbInscrits): self
+    {
+        $this->nbInscrits = $nbInscrits;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Inscriptions[]
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscriptions $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setSortie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscriptions $inscription): self
+    {
+        if ($this->inscriptions->contains($inscription)) {
+            $this->inscriptions->removeElement($inscription);
+            // set the owning side to null (unless already changed)
+            if ($inscription->getSortie() === $this) {
+                $inscription->setSortie(null);
+            }
+        }
 
         return $this;
     }

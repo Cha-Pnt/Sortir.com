@@ -42,6 +42,7 @@ class ProfilController extends AbstractController
             'formUser' => $form->createView()
         ]);
     }
+
     /**
      * @Route("profil/afficherProfil/{id}", name="profil")
      */

@@ -48,11 +48,12 @@ class FiltresSortieType extends AbstractType
                 'label' => "Sorties dont je suis l'organisateur/trice",'required'=>false
             ])
             ->add('inscription', ChoiceType::class, [
+                'placeholder'=>false,
+                'required'=>false,
                 'choices'=>[
                     'Sorties auxquelles je suis inscrit'=>'oui',
                     'Sorties auxquelles je ne suis pas inscrit'=>'non',],
                 'expanded'=>true,
-                'required'=>false,
                 'empty_data'=>null
             ])
             ->add('etat', EntityType::class,[

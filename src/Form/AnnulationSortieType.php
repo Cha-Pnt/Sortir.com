@@ -3,6 +3,7 @@
 namespace App\Form;
 
 
+use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -36,7 +37,8 @@ class AnnulationSortieType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Sortie::class,
+            'motif' =>'',
         ]);
     }
 }

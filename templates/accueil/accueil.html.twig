@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Accueil {% endblock %}
-{% block stylesheet %}{{ parent() }}
-{% endblock %}
+
+{% block title %} Accueil | Sortir.com {% endblock %}
+{% block stylesheet %} {{ parent() }}{%endblock %}
+
 {% block body %}
     <div class="date-nom">
         <p>Date du jour : {{ 'now' |date('d/m/Y') }}<br>

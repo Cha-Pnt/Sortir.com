@@ -36,14 +36,9 @@ class Recherche{
     public $organisateur;
 
     /**
-     * @var boolean
+     * @var null|string
      */
-    public $inscrit;
-
-    /**
-     * @var boolean
-     */
-    public  $nonInscrit;
+    public $inscription;
 
     /**
      * @var array

@@ -23,42 +23,47 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     //Récupère les sorties selon les critères de recherche
-    public function findByParametres( Recherche $parametres, $user,$repoParticipant):array{
+    public function findByParametres( Recherche $parametres, $user,$repoParticipant):array
+    {
 
         $participant = $repoParticipant->findById($user);
         $qb = $this->createQueryBuilder('s');
 
-        if(!empty ($parametres->search)) {
-            $qb=$qb
+        if (!empty ($parametres->search)) {
+            $qb = $qb
                 ->andWhere('s.nom LIKE :q')
-                ->setParameter('q',"%{$parametres->search}%" );
+                ->setParameter('q', "%{$parametres->search}%");
         }
-        if(!empty ($parametres->campus)){
-            $qb=$qb
-                ->join('s.campus','c')
+        if (!empty ($parametres->campus)) {
+            $qb = $qb
+                ->join('s.campus', 'c')
                 ->andWhere('c.id IN (:campus)')
-                ->setParameter('campus',$parametres->campus);
+                ->setParameter('campus', $parametres->campus);
         }
-        /*if(!empty ($parametres->debut) && ($parametres->fin)) {
-           $qb->andWhere('s.dateHeureDebut BETWEEN ?1 AND ?2')
-                ->setParameters(array($dateHeureDebut,$dateLimite));
-        }*/
-        if(!empty ($parametres->organisateur)) {
-            $qb=$qb
-               ->andWhere('s.organisateur = :user')
-                ->setParameter('user',$participant);
+        if (!empty ($parametres->dateDebut) && ($parametres->dateLimite)) {
+            $qb = $qb
+                ->andWhere('s.dateHeureDebut >= :dateDebut ')
+                ->setParameter('dateDebut', $parametres->dateDebut)
+                ->andWhere('s.dateLimite <= :dateLimite')
+                ->setParameter('dateLimite', $parametres->dateLimite);
         }
-        if(!empty ($parametres->inscrit)){
-            $qb=$qb
-                ->join('s.inscriptions','i')
-                ->andWhere('i.participant = :user')
-                ->setParameter('user',$participant);
-        }
-        if($parametres->nonInscrit) {
-            $qb=$qb
-                ->join('s.inscriptions','i')
-                ->andWhere('i.participant != :user')
+        if (!empty ($parametres->organisateur)) {
+            $qb = $qb
+                ->andWhere('s.organisateur = :user')
                 ->setParameter('user', $participant);
+        }
+        if($parametres->inscription) {
+            if (($parametres->inscription) == "oui") {
+                $qb = $qb
+                    ->join('s.inscriptions', 'i')
+                    ->andWhere('i.participant = :user')
+                    ->setParameter('user', $participant);
+            } else if (($parametres->inscription) == 'non') {
+                $qb = $qb
+                    ->join('s.inscriptions', 'i')
+                    ->andWhere('i.participant != :user')
+                    ->setParameter('user', $participant);
+            }
         }
         if(!empty($parametres->etat)){
             $qb ->join('s.etat','e')

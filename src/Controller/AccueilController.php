@@ -27,19 +27,19 @@ class AccueilController extends AbstractController
     {
         $recherche = new Recherche();
         $user = $this->getUser()->getId();
-        $rechercherForm = $this->createForm(FiltresSortieType::class, $recherche);
-        $rechercherForm->handleRequest($request);
+        $filtresForm = $this->createForm(FiltresSortieType::class, $recherche);
+        $filtresForm->handleRequest($request);
 
-        if($rechercherForm->isSubmitted()) {
-            $parametres=$rechercherForm->getData();
+        if($filtresForm->isSubmitted()) {
+            $parametres=$filtresForm->getData();
            $listeSorties=$sortieRepo->findByParametres($parametres,$user,$participantRepository);
             return $this->render('accueil/accueil.html.twig', [
-                    "rechercherForm" => $rechercherForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
+                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
             );
         }else {
                 $listeSorties = $sortieRepo->findAll();
                 return $this->render('accueil/accueil.html.twig', [
-                    "rechercherForm" => $rechercherForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
+                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
             );
         }
     }

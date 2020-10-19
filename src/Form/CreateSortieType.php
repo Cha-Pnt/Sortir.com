@@ -19,7 +19,7 @@ class CreateSortieType extends AbstractType
             ->add('dateLimite')
             ->add('nbInscriptionsMax')
             ->add('description')
-            ->add('etat')
+//            ->add('etat')
             ->add('lieu')
             ->add('campus')
         ;

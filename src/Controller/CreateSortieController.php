@@ -24,7 +24,6 @@ class CreateSortieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
                 $sortie->setOrganisateur($this->getUser());
-                $sortie->getInscriptions(0);
                 $em->persist($sortie);
                 $em->flush();
             return $this->redirectToRoute('accueil');

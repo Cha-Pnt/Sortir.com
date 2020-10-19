@@ -12,7 +12,7 @@
             <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.campus, {'attr':{'placeholder':'campus','class':'form-control'}}) }}
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 mb-3 input-group date" data-provide="datepicker">
                 {{ form_row(formSortie.dateHeureDebut, {'attr':{'placeholder':'dateHeureDebut','class':'form-control'}}) }}
             </div>
         </div>
@@ -31,15 +31,16 @@
             <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.description, {'attr':{'placeholder':'description','class':'form-control'}}) }}
             </div>
-            <div class="col-md-4 mb-3">
-                {{ form_row(formSortie.etat, {'attr':{'placeholder':'etat','class':'form-control'}}) }}
-            </div>
+{#            <div class="col-md-4 mb-3">#}
+{#                {{ form_row(formSortie.etat, {'attr':{'placeholder':'etat','class':'form-control'}}) }}#}
+{#            </div>#}
             <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.lieu, {'attr':{'placeholder':'lieu','class':'form-control'}}) }}
             </div>
         </div>
-         <button class="btn btn-primary" type="submit">Submit form</button>
-{#        {{ form_row(formSortie.add) }}#}
+         <button class="btn btn-success" type="submit">Enregistrer</button>
+         <button class="btn btn-primary" type="submit">Publier la sortie</button>
+         <button class="btn btn-danger" type="submit">Annuler</button>
     </div>
     {{ form_end(formSortie) }}
 {% endblock %}

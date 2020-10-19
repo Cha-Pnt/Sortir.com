@@ -62,6 +62,7 @@ class SortieRepository extends ServiceEntityRepository
                 $qb = $qb
                     ->join('s.inscriptions', 'i')
                     ->andWhere('i.participant != :user')
+                    ->andWhere('i is null')
                     ->setParameter('user', $participant);
             }
         }

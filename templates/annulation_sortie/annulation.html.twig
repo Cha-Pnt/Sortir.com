@@ -7,41 +7,48 @@
         <div>
                 <form>
                         <div>
-                                <label for="name">Nom de la sortie : </label>
+                                <span>Nom de la sortie : </span>
                         </div>
                         <div>
-                                <input type="text" value="{{ sortie.nom }}" readonly>
-                        </div>
-                        
-                        <div>
-                                <label for="date">Date de la sortie : </label>
-                        </div>
-                        <div>
-                                <input type="date" value="{{ sortie.dateHeureDebut | date('d/m/Y') }}" readonly>
+                                <span>{{ sortie.nom }}</span>
                         </div>
                         
                         <div>
-                                <label for="campus">Campus : </label>
+                                <span>Date de la sortie : </span>
                         </div>
                         <div>
-                                <input type="text" value="{{ sortie.campus }}" readonly>
-                        </div>
-                        
-                        <div>
-                                <label for="lieu">Lieu : </label>
-                        </div>
-                        <div>
-                                <input type="text" value="{{ sortie.lieu }}" readonly>
+                                <span>{{ sortie.dateHeureDebut | date('d/m/Y') }}</span>
                         </div>
                         
                         <div>
+                                <span>Campus : </span>
+                        </div>
+                        <div>
+                                <span>{{ sortie.campus }}</span>
+                        </div>
+                        
+                        <div>
+                                <span>Lieu : </span>
+                        </div>
+                        <div>
+                                <span>{{ sortie.lieu }}</span>
+                        </div>
+
+                        {{ form(annulationForm) }}
+                        
+                        {# <div>
                                 <label for="motif">Motif : </label>
                         </div>
                         <div>
                                 <textarea></textarea>
-                        </div>
+                        </div> #}
+{#                        <div>#}
+{#                                <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>#}
+{#                        </div>#}
+{#                        <div>#}
+{#                                <button type="" class="btn btn-primary btn-lg">Retour</button>#}
+{#                        </div>#}
 
-                        <button type="submit" class="btn btn-primary btn-lg">Annuler</button>
                 </form>
         </div>
 

@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\AnnulationSortieType;
+use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,21 +15,44 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnnulationSortieController extends AbstractController
 {
     /**
-     * @Route("/annulation", name="annulation_sortie")
+     * @Route("/annulation/{id}", name="annulation_sortie", requirements={"id": "\d+"},
+     *    )
+     * @param $id
+     * @param Request $request
+     * @param SortieRepository $sortieRepo
+     *
+     * @return \Symfony\Component\HttpFoundation\Response|void
      */
-    public function AnnulationSortie(EntityManagerInterface $em, Request $request, $id, Sortie $sortie)
+    public function AnnulationSortie(Request $request, $id, SortieRepository $sortieRepo, EntityManagerInterface $em, EtatRepository $etatRepository)
     {
+
+
+       $annulationForm = $this-> createForm(AnnulationSortieType::class);
+       $annulationForm->handleRequest($request);
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($id);
-        $annulationForm = $this-> createForm(AnnulationSortieType::class, $sortie);
-        $annulationForm->handleRequest($request);
 
-        if($annulationForm->isSubmitted() && $annulationForm->isValid())
+        if ($annulationForm->isSubmitted()) {
+            $coucou = 'coucou';
+            dump($coucou);
+            $etat=$etatRepository->findOneBy(['libelle', 'Annulée']);
+            $sortie->setEtat($etat);
+            $em->persist($sortie);
+            $em->flush();
+            return $this->redirectToRoute('accueil');
+        }
+        return $this->render('annulation_sortie/annulation.html.twig', ["annulationForm" => $annulationForm ->createView(), 'sortie' => $sortie
+            ]);
+            //$parametres = $annulationForm->getData();
 
 
 
-        return $this->render('annulation_sortie/annulation.html.twig', [
-            'controller_name' => 'AnnulationSortieController',
-        ]);
+
+            //return $this->redirectToRoute('accueil');
+
+
+
+
+
     }
 }

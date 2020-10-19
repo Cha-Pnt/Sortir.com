@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Sortie;
-use App\Form\ChercherSortieType;
-use App\Form\RechercheFormType;
+use App\Data\Recherche;
+use App\Entity\Participant;
+use App\Form\FiltresSortieType;
+use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use http\Env\Response;
 use mysql_xdevapi\Exception;
@@ -22,21 +23,23 @@ class AccueilController extends AbstractController
      * @param SortieRepository $sortieRepo
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function chercherSortie(Request $request, SortieRepository $sortieRepo)
+    public function chercherSortie(Request $request, SortieRepository $sortieRepo, ParticipantRepository $participantRepository)
     {
-        $sortie = new Sortie();
-        $user = $this->getUser();
-        $rechercherForm = $this ->createForm(RechercheFormType::class, $sortie);
-        $rechercherForm->handleRequest($request);
+        $recherche = new Recherche();
+        $user = $this->getUser()->getId();
+        $filtresForm = $this->createForm(FiltresSortieType::class, $recherche);
+        $filtresForm->handleRequest($request);
 
-        if($rechercherForm->isSubmitted() && $rechercherForm->isValid()) {
-            $parametres=$rechercherForm->getData();
-            $listeSorties=$sortieRepo->findByParametres($parametres,$user);
-            return $this->redirectToRoute('accueil', array('listeSorties'=>[$listeSorties],'user'=>[$user]));
+        if($filtresForm->isSubmitted()) {
+            $parametres=$filtresForm->getData();
+           $listeSorties=$sortieRepo->findByParametres($parametres,$user,$participantRepository);
+            return $this->render('accueil/accueil.html.twig', [
+                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
+            );
         }else {
                 $listeSorties = $sortieRepo->findAll();
                 return $this->render('accueil/accueil.html.twig', [
-                    "rechercherForm" => $rechercherForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
+                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
             );
         }
     }

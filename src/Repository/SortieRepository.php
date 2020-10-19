@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Data\Recherche;
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,55 +23,55 @@ class SortieRepository extends ServiceEntityRepository
     }
 
     //Récupère les sorties selon les critères de recherche
-    public function findByParametres($parametres, $user){
+    public function findByParametres( Recherche $parametres, $user,$repoParticipant):array
+    {
 
-        //Récupération des données du formulaire
-        $camp=$parametres['campus'];
-        $titre = $parametres['nom'];
-        $dateHeureDebut =$parametres['date_HeureDebut'];
-        $dateLimite=$parametres['dateLimite'];
-        $organisateur=$parametres['organisateur'];
-        $inscrit=$parametres['inscrit'];
-        $nonInscrit=$parametres['nonInscrit'];
-        $etat=$parametres['etat'];
-
+        $participant = $repoParticipant->findById($user);
         $qb = $this->createQueryBuilder('s');
-        if($camp='All') {
-            $qb->select('*')
-                ->from('Sortie','s');
-        }else {
-            $qb->select('s')
-                ->from('sortie','s')
-                ->where('s.campus = :campus')
-                ->setParameter('campus',$camp);
+
+        if (!empty ($parametres->search)) {
+            $qb = $qb
+                ->andWhere('s.nom LIKE :q')
+                ->setParameter('q', "%{$parametres->search}%");
         }
-        if($titre) {
-            $qb->andWhere('s.nom = :titre')
-                ->setParameter('titre', $titre);
+        if (!empty ($parametres->campus)) {
+            $qb = $qb
+                ->join('s.campus', 'c')
+                ->andWhere('c.id IN (:campus)')
+                ->setParameter('campus', $parametres->campus);
         }
-        if($dateHeureDebut && $dateLimite) {
-           $qb->andWhere('s.dateHeureDebut BETWEEN ?1 AND ?2')
-                ->setParameters(array($dateHeureDebut,$dateLimite));
+        if (!empty ($parametres->dateDebut) && ($parametres->dateLimite)) {
+            $qb = $qb
+                ->andWhere('s.dateHeureDebut >= :dateDebut ')
+                ->setParameter('dateDebut', $parametres->dateDebut)
+                ->andWhere('s.dateLimite <= :dateLimite')
+                ->setParameter('dateLimite', $parametres->dateLimite);
         }
-        if($organisateur) {
-            $qb->andWhere('s.organisateur = :organisateur')
-                ->setParameter('organisateur', $user);
+        if (!empty ($parametres->organisateur)) {
+            $qb = $qb
+                ->andWhere('s.organisateur = :user')
+                ->setParameter('user', $participant);
         }
-        if($inscrit){
-            $inscrit = $user->getInscription();
-            $qb->andWhere('s.inscription = :inscriptionUser')
-                ->setParameter('inscriptionUser',$inscrit);
+        if($parametres->inscription) {
+            if (($parametres->inscription) == "oui") {
+                $qb = $qb
+                    ->join('s.inscriptions', 'i')
+                    ->andWhere('i.participant = :user')
+                    ->setParameter('user', $participant);
+            } else if (($parametres->inscription) == 'non') {
+                $qb = $qb
+                    ->join('s.inscriptions', 'i')
+                    ->andWhere('i.participant != :user')
+                    ->setParameter('user', $participant);
+            }
         }
-        if($nonInscrit) {
-            $inscrit = $user->getInscription();
-            $qb->andWhere('s.inscription != :inscriptionUser')
-                ->setParameter('inscriptionUser', $inscrit);
+        if(!empty($parametres->etat)){
+            $qb ->join('s.etat','e')
+                ->andWhere('e.id IN (:etat)')
+                ->setParameter('etat', $parametres->etat);
         }
-        if($etat){
-            $qb->andWhere('s.inscription != :inscriptionUser')
-                ->setParameter('inscriptionUser', $inscrit);
-        }
-       return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getResult();
+
     }
 
     // /**

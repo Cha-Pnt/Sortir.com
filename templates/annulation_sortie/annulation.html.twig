@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Annuler Sortie | Sortir.com{% endblock %}
+
+{% block body %}
+        
+        <div>
+                <form>
+                        <div>
+                                <label for="name">Nom de la sortie : </label>
+                        </div>
+                        <div>
+                                <input type="text" value="{{ sortie.nom }}" readonly>
+                        </div>
+                        
+                        <div>
+                                <label for="date">Date de la sortie : </label>
+                        </div>
+                        <div>
+                                <input type="date" value="{{ sortie.dateHeureDebut | date('d/m/Y') }}" readonly>
+                        </div>
+                        
+                        <div>
+                                <label for="campus">Campus : </label>
+                        </div>
+                        <div>
+                                <input type="text" value="{{ sortie.campus }}" readonly>
+                        </div>
+                        
+                        <div>
+                                <label for="lieu">Lieu : </label>
+                        </div>
+                        <div>
+                                <input type="text" value="{{ sortie.lieu }}" readonly>
+                        </div>
+                        
+                        <div>
+                                <label for="motif">Motif : </label>
+                        </div>
+                        <div>
+                                <textarea></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg">Annuler</button>
+                </form>
+        </div>
+
+{% endblock %}

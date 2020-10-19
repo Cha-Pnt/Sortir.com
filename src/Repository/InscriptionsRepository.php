@@ -47,4 +47,15 @@ class InscriptionsRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findByParameters($user, $sortie)
+    {
+        $qb = $this->createQueryBuilder('i');
+        $qb ->select('i')
+            ->andWhere('i.sortie=:sortie')
+            ->andWhere('i.participant =:user')
+            ->setParameters(['sortie'=>$sortie,
+                            'user'=>$user]
+    );
+        return $qb->getQuery()->getResult();
+    }
 }

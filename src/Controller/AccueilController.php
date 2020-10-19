@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Data\Recherche;
-use App\Entity\Participant;
 use App\Form\FiltresSortieType;
+use App\Repository\InscriptionsRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use http\Env\Response;
@@ -21,12 +21,32 @@ class AccueilController extends AbstractController
      * @Route("/accueil", name="accueil")
      * @param Request $request
      * @param SortieRepository $sortieRepo
+     * @param ParticipantRepository $participantRepository
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Form\Exception\RuntimeException
      */
-    public function chercherSortie(Request $request, SortieRepository $sortieRepo, ParticipantRepository $participantRepository)
+    public function chercherSortie(Request $request, SortieRepository $sortieRepo, ParticipantRepository $participantRepository,InscriptionsRepository $repoInscriptions)
     {
         $recherche = new Recherche();
-        $user = $this->getUser()->getId();
+        //Liste les inscriptions de l'utilisateur connecté
+        $user = $this->getUser();
+        $listeInscriptionsUser=[];
+        $listeInscriptions=$repoInscriptions->findAll();
+        foreach ($listeInscriptions as $inscription){
+            if ($inscription->getParticipant() == $user ){
+                $listeInscriptionsUser[]=$inscription;
+            }
+        }
+        //dd($listeInscriptionsUser);
+        $tableauSortiesInscrits=[];
+
+        //Création d'un tableau des id des sorties auquel l'utilisateur s'est inscrit
+        if($listeInscriptionsUser != null){
+            foreach ($listeInscriptionsUser as $inscription) {
+                $tableauSortiesInscrits[] = $inscription->getSortie()->getId();
+            }
+        }
+        //Creation du formulaire
         $filtresForm = $this->createForm(FiltresSortieType::class, $recherche);
         $filtresForm->handleRequest($request);
 
@@ -34,12 +54,12 @@ class AccueilController extends AbstractController
             $parametres=$filtresForm->getData();
            $listeSorties=$sortieRepo->findByParametres($parametres,$user,$participantRepository);
             return $this->render('accueil/accueil.html.twig', [
-                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
+                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser(),'listeInscriptions'=>$tableauSortiesInscrits]
             );
         }else {
                 $listeSorties = $sortieRepo->findAll();
                 return $this->render('accueil/accueil.html.twig', [
-                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser()]
+                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser(),'listeInscriptions'=>$tableauSortiesInscrits]
             );
         }
     }

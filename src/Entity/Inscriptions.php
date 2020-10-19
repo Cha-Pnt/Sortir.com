@@ -21,18 +21,22 @@ class Inscriptions
      * @ORM\Column(type="datetime")
      */
     private $dateInscription;
+        public function __construct()
+        {
+            $this->dateInscription = new \DateTime();
+        }
 
     /**
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="inscription")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $participant;
+    private Participant $participant;
 
     /**
      * @ORM\ManyToOne(targetEntity=Sortie::class, inversedBy="inscriptions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $sortie;
+    private Sortie $sortie;
 
     public function getId(): ?int
     {

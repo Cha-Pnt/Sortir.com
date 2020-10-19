@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AfficherSortieController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <!--  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" > -->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ sortie.nom }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="sortie Pic" src="https://magiclight.net/wp-content/uploads/2020/02/entete.jpg" class="img-responsive"> </div>
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table table-sortie-information">
+                                <tbody>
+                                <tr>
+                                    <td>Nom de la sortie:</td>
+                                    <td>{{ sortie.nom }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date et heure de la sortie:</td>
+                                    <td>{{ sortie.dateHeureDebut|date("m/d/Y") }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date limite d'inscription:</td>
+                                    <td>{{ sortie.dateLimite|date("m/d/Y") }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre de places:</td>
+                                    <td>{{ sortie.nbInscriptionsMax}}</td>
+                                </tr>
+                                <tr>
+                                    <td>duree</td>
+                                    <td>{{sortie.duree * 60}} minutes</td>
+                                </tr>
+                                <td>Description et infos:</td>
+                                <td>{{ sortie.description }}<br>
+                                </td>
+                                <tr>
+                                    <td>nbInscriptionsMax</td>
+                                    <td>{{ sortie.nbInscriptionsMax }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Campus</td>
+                                    <td>{{ sortie.campus }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lieu</td>
+                                    <td>{{ sortie.lieu }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <a href="{{ path('accueil') }}" class="btn btn-primary">Retour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--    </div> -->
+        </div>
+    </div>
+{% endblock %}

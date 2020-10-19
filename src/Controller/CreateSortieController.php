@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\CreateSortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class CreateSortieController extends AbstractController
 {
@@ -22,17 +23,14 @@ class CreateSortieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')){
                 $sortie->setOrganisateur($this->getUser());
-            }
+                $sortie->getInscriptions(0);
+                $em->persist($sortie);
+                $em->flush();
+            return $this->redirectToRoute('accueil');
 
-            $em->persist($sortie);
-            $em->flush();
-            return $this->Redirect('accueil');
         }
-
         return $this->render('create_sortie/index.html.twig', [
-            'controller_name' => 'CreateSortieController',
             'formSortie' => $form->createView()
         ]);
     }

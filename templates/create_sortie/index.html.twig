@@ -5,42 +5,41 @@
 {% block body %}
     {{ form_start(formSortie) }}
     <div class="container">
-        <form>
-            <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.nom, {'attr':{'placeholder':'nom','class':'form-control'}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.campus, {'attr':{'placeholder':'campus','class':'form-control'}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.dateHeureDebut, {'attr':{'placeholder':'dateHeureDebut','class':'form-control'}}) }}
-                </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.nom, {'attr':{'placeholder':'nom','class':'form-control'}}) }}
             </div>
-            <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.duree, {'attr':{'placeholder':'duree','class':'form-control'}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.nbInscriptionsMax, {'attr':{'placeholder':'nbInscriptionsMax','class':'form-control'}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.dateLimite, {'attr':{'placeholder':'dateLimite','class':'form-control'}}) }}
-                </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.campus, {'attr':{'placeholder':'campus','class':'form-control'}}) }}
             </div>
-            <div class="form-row">
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.description, {'attr':{'placeholder':'description','class':'form-control'}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.etat, {'attr':{'placeholder':'etat','class':'form-control'}}) }}
-                </div>
-                <div class="col-md-4 mb-3">
-                    {{ form_row(formSortie.lieu, {'attr':{'placeholder':'lieu','class':'form-control'}}) }}
-                </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.dateHeureDebut, {'attr':{'placeholder':'dateHeureDebut','class':'form-control'}}) }}
             </div>
-            <button class="btn btn-primary" type="submit">Submit form</button>
-        </form>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.duree, {'attr':{'placeholder':'duree','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.nbInscriptionsMax, {'attr':{'placeholder':'nbInscriptionsMax','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.dateLimite, {'attr':{'placeholder':'dateLimite','class':'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.description, {'attr':{'placeholder':'description','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.etat, {'attr':{'placeholder':'etat','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.lieu, {'attr':{'placeholder':'lieu','class':'form-control'}}) }}
+            </div>
+        </div>
+         <button class="btn btn-primary" type="submit">Submit form</button>
+{#        {{ form_row(formSortie.add) }}#}
     </div>
     {{ form_end(formSortie) }}
 {% endblock %}

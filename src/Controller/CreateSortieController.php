@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\CreateSortieType;
@@ -21,8 +22,16 @@ class CreateSortieController extends AbstractController
         $form = $this->createForm(CreateSortieType::class, $sortie);
 
         $form->handleRequest($request);
-
+        $repository = $this->getDoctrine()->getRepository(Etat::class);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->getClickedButton() === $form->get('enregistrer')){
+                $etat = $repository->find(1);
+            }else if ($form->getClickedButton() === $form->get('publierLaSortie')){
+                $etat = $repository->find(2);
+            }else{
+                return $this->redirectToRoute('accueil');
+            }
+                $sortie->setEtat($etat);
                 $sortie->setOrganisateur($this->getUser());
                 $em->persist($sortie);
                 $em->flush();

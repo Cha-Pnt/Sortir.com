@@ -12,7 +12,7 @@
             <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.campus, {'attr':{'placeholder':'campus','class':'form-control'}}) }}
             </div>
-            <div class="col-md-4 mb-3 input-group date" data-provide="datepicker">
+            <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.dateHeureDebut, {'attr':{'placeholder':'dateHeureDebut','class':'form-control'}}) }}
             </div>
         </div>
@@ -38,9 +38,9 @@
                 {{ form_row(formSortie.lieu, {'attr':{'placeholder':'lieu','class':'form-control'}}) }}
             </div>
         </div>
-         <button class="btn btn-success" type="submit">Enregistrer</button>
-         <button class="btn btn-primary" type="submit">Publier la sortie</button>
-         <button class="btn btn-danger" type="submit">Annuler</button>
+        {{ form_widget(formSortie.enregistrer, {'attr':{'class':'btn btn-success'}}) }}
+        {{ form_widget(formSortie.publierLaSortie, {'attr':{'class':'btn btn-primary'}}) }}
+        {{ form_widget(formSortie.annuler, {'attr':{'class':'btn btn-danger'}}) }}
     </div>
     {{ form_end(formSortie) }}
 {% endblock %}

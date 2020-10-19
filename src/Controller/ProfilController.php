@@ -14,13 +14,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/profil", name="profil")
-     * @Route("/profil/{id}", name="profil_edit")
+     * @Route("/profil/{id}", name="profil")
      */
     public function index(Participant $user,EntityManagerInterface $em, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-
-        //$user = new Participant();
         $form = $this->createForm(ProfilFormType::class, $user);
         $form->handleRequest($request);
 
@@ -44,7 +41,7 @@ class ProfilController extends AbstractController
     }
 
     /**
-     * @Route("profil/afficherProfil/{id}", name="profil")
+     * @Route("profil/afficherProfil/{id}", name="afficherProfil")
      */
     public function afficherProfil(Participant $user){
         return $this->render('profil/afficherProfil.html.twig', [

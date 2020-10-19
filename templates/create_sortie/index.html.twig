@@ -31,16 +31,13 @@
             <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.description, {'attr':{'placeholder':'description','class':'form-control'}}) }}
             </div>
-{#            <div class="col-md-4 mb-3">#}
-{#                {{ form_row(formSortie.etat, {'attr':{'placeholder':'etat','class':'form-control'}}) }}#}
-{#            </div>#}
             <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.lieu, {'attr':{'placeholder':'lieu','class':'form-control'}}) }}
             </div>
         </div>
         {{ form_widget(formSortie.enregistrer, {'attr':{'class':'btn btn-success'}}) }}
         {{ form_widget(formSortie.publierLaSortie, {'attr':{'class':'btn btn-primary'}}) }}
-        {{ form_widget(formSortie.annuler, {'attr':{'class':'btn btn-danger'}}) }}
+        <a class="btn btn btn-danger" href="{{ path('accueil') }}">Annuler</a>
     </div>
     {{ form_end(formSortie) }}
 {% endblock %}

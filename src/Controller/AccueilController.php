@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Data\Recherche;
+use App\Entity\Etat;
 use App\Form\FiltresSortieType;
+use App\Repository\EtatRepository;
 use App\Repository\InscriptionsRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
@@ -25,7 +27,7 @@ class AccueilController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Symfony\Component\Form\Exception\RuntimeException
      */
-    public function chercherSortie(Request $request, SortieRepository $sortieRepo, ParticipantRepository $participantRepository,InscriptionsRepository $repoInscriptions)
+    public function chercherSortie(Request $request, SortieRepository $sortieRepo, ParticipantRepository $participantRepository,InscriptionsRepository $repoInscriptions,EtatRepository $repoEtat)
     {
         $recherche = new Recherche();
         //Liste les inscriptions de l'utilisateur connecté
@@ -46,6 +48,9 @@ class AccueilController extends AbstractController
                 $tableauSortiesInscrits[] = $inscription->getSortie()->getId();
             }
         }
+
+        //Initialisation de la date du jour
+        $dateActuelle = new \Datetime;
         //Creation du formulaire
         $filtresForm = $this->createForm(FiltresSortieType::class, $recherche);
         $filtresForm->handleRequest($request);
@@ -54,12 +59,28 @@ class AccueilController extends AbstractController
             $parametres=$filtresForm->getData();
            $listeSorties=$sortieRepo->findByParametres($parametres,$user,$participantRepository);
             return $this->render('accueil/accueil.html.twig', [
-                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser(),'listeInscriptions'=>$tableauSortiesInscrits]
+                    "filtresForm" => $filtresForm->createView(),
+                    'listeSorties'=>$listeSorties,'user'=>$this->getUser(),
+                    'listeInscriptions'=>$tableauSortiesInscrits,
+                    'dateActuelle'=>$dateActuelle]
             );
         }else {
+            //Affichage de la liste des sorties
                 $listeSorties = $sortieRepo->findAll();
+                $etatPasse = $repoEtat->findOneBy(['libelle'=>'passée']);
+                foreach ($listeSorties as $sortie){
+                    if($sortie->getDateHeureDebut() < $dateActuelle ){
+                        $sortie->setEtat($etatPasse);
+                    }elseif ($sortie->getDateLimite() < $dateActuelle && $sortie->getDateHeureDebut() > $dateActuelle ){
+                        $etatPasse = $repoEtat->findOneBy(['libelle'=>'clôturée']);
+                        $sortie->setEtat($etatPasse);
+                    }
+                }
                 return $this->render('accueil/accueil.html.twig', [
-                    "filtresForm" => $filtresForm->createView(),'listeSorties'=>$listeSorties,'user'=>$this->getUser(),'listeInscriptions'=>$tableauSortiesInscrits]
+                    "filtresForm" => $filtresForm->createView(),
+                        'listeSorties'=>$listeSorties,'user'=>$this->getUser(),
+                        'listeInscriptions'=>$tableauSortiesInscrits,
+                        'dateActuelle'=>$dateActuelle]
             );
         }
     }

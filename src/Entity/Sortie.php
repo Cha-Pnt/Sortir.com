@@ -81,6 +81,7 @@ class Sortie
 
     /**
      * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="sortie")
+     * @ORM\JoinColumn (nullable=true)
      */
     private $inscriptions;
 

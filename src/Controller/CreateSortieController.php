@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Etat;
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\CreateSortieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class CreateSortieController extends AbstractController
 {
@@ -20,19 +22,23 @@ class CreateSortieController extends AbstractController
         $form = $this->createForm(CreateSortieType::class, $sortie);
 
         $form->handleRequest($request);
-
+        $repository = $this->getDoctrine()->getRepository(Etat::class);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')){
-                $sortie->setOrganisateur($this->getUser());
+            if ($form->getClickedButton() === $form->get('enregistrer')){
+                $etat = $repository->find(1);
+            }else if ($form->getClickedButton() === $form->get('publierLaSortie')){
+                $etat = $repository->find(2);
+            }else{
+                return $this->redirectToRoute('accueil');
             }
+                $sortie->setEtat($etat);
+                $sortie->setOrganisateur($this->getUser());
+                $em->persist($sortie);
+                $em->flush();
+            return $this->redirectToRoute('accueil');
 
-            $em->persist($sortie);
-            $em->flush();
-            return $this->Redirect('accueil');
         }
-
         return $this->render('create_sortie/index.html.twig', [
-            'controller_name' => 'CreateSortieController',
             'formSortie' => $form->createView()
         ]);
     }

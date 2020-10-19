@@ -17,6 +17,7 @@ class ProfilFormType extends AbstractType
         $builder
             ->add('nom')
             ->add('password', PasswordType::class)
+            ->add('confirm_password', PasswordType::class)
             ->add('prenom')
             ->add('phone')
             ->add('mail')

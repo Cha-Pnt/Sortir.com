@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\AfficherSortieType;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

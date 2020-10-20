@@ -4,9 +4,8 @@
 {% block head %} <link rel="stylesheet" href="css/register.css"> {% endblock %}
 
  {% block body %}
-
+     {{ form_start(registrationUser) }}
      <div class="container">
-         <form method="post" class="form">
              <h1>Enregistrer un utilisateur</h1><br><br>
              <div class="row">
                  <div class="col-3">
@@ -89,8 +88,7 @@
              <br>
 
              <button type="submit" class="btn btn-primary">Valider</button>
-         </form>
      </div>
 
-
+     {{ form_end(registrationUser) }}
  {% endblock %}

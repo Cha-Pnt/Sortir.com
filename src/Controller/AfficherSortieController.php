@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\AfficherSortieType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,12 +19,22 @@ class AfficherSortieController extends AbstractController
     {
         $form = $this->createForm(AfficherSortieType::class, $sortie);
         $form->handleRequest($request);
-
+        $repository = $this->getDoctrine()->getRepository(Etat::class);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($sortie);
-            $em->flush();
-            return $this->Redirect('afficherProfil/'.$sortie->getId());
-        }
+            if ($form->getClickedButton() === $form->get('enregistrer')) {
+                $etat = $repository->find(1);
+            } else if ($form->getClickedButton() === $form->get('publierLaSortie')) {
+                $etat = $repository->find(2);
+            } else if ($form->getClickedButton() === $form->get('annulerLaSortie')) {
+                $etat = $repository->find(6);
+                }else {
+                    return $this->redirectToRoute('accueil');
+                }
+                $sortie->setEtat($etat);
+                $em->persist($sortie);
+                $em->flush();
+                return $this->Redirect('http://localhost/Sortir.com/public/afficherSortie/' . $sortie->getId());
+            }
 
         return $this->render('afficher_sortie/index.html.twig', [
             'formSortie' => $form->createView()

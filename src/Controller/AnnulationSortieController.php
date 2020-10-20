@@ -30,7 +30,7 @@ class AnnulationSortieController extends AbstractController
         if ($annulationForm->isSubmitted()) {
             $coucou = 'coucou';
             dump($coucou);
-            $etat=$etatRepository->find(7);
+            $etat=$etatRepository->find(6);
             $sortie->setEtat($etat);
             $em->persist($sortie);
             $em->flush();

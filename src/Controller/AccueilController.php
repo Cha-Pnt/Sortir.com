@@ -69,7 +69,7 @@ class AccueilController extends AbstractController
                 $listeSorties = $sortieRepo->findAll();
                 $etatPasse = $repoEtat->findOneBy(['libelle'=>'passée']);
                 foreach ($listeSorties as $sortie){
-                    if($sortie->getDateHeureDebut() < $dateActuelle ){
+                    if($sortie->getDateHeureDebut() < $dateActuelle && $sortie->getEtat()->getLibelle() != "Annulée"){
                         $sortie->setEtat($etatPasse);
                     }elseif ($sortie->getDateLimite() < $dateActuelle && $sortie->getDateHeureDebut() > $dateActuelle ){
                         $etatPasse = $repoEtat->findOneBy(['libelle'=>'clôturée']);

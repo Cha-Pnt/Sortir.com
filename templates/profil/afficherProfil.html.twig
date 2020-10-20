@@ -1,14 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Profil | Sortir.com{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/afficherProfile.css') }}">
+{% endblock %}
 
 {% block body %}
 
     <div class="container">
-        <div class="row">
+        <div class="row" id="row">
           <!--  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" > -->
                 <div class="panel panel-info">
-                    <div class="panel-heading">
+                    <div class="panel-heading bg-dark text-white border-light">
                         <h3 class="panel-title">{{ user.pseudo }}</h3>
                     </div>
                     <div class="panel-body">
@@ -40,7 +44,10 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                <a href="{{ path('profil', {'id': app.user.id}) }}" class="btn btn-primary">Retour</a>
+                                <div class="back" align="justify">
+                                    <a href="{{ path('profil', {'id': app.user.id}) }}" class="btn btn-primary" align="center">Retour</a>
+                                </div>
+
                             </div>
                         </div>
                     </div>

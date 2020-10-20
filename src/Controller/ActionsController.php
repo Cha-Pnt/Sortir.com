@@ -42,26 +42,6 @@ class ActionsController extends AbstractController{
 
     }
 
-    //Permet d'afficher le détail d'une sortie
-
-    /**
-     * @Route("/afficherSortie/{id}", name="afficherSortie")
-     * @param $id
-     * @param SortieRepository $repoSortie
-     * @return Response
-     */
-    public function actionAfficher($id,SortieRepository $repoSortie){
-        $sortie =$repoSortie->find($id);
-        foreach ($sortie->getInscriptions() as $t){
-            dump($t);
-
-        }
-        dd('sedtrgftj');
-
-        return $this->redirectToRoute('accueil');
-
-    }
-
     /**
      * @Route("/desister/{id}", name="desister")
      * @param $id

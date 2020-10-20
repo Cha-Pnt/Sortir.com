@@ -19,7 +19,7 @@ class AnnulationSortieController extends AbstractController
      *    )
      * @return \Symfony\Component\HttpFoundation\Response|void
      */
-    public function AnnulationSortie(Request $request, Sortie $sortie, EntityManagerInterface $em)
+    public function AnnulationSortie(Request $request, Sortie $sortie, EntityManagerInterface $em, EtatRepository $etatRepository)
     {
 
         $annulationForm = $this-> createForm(AnnulationSortieType::class,$sortie);
@@ -27,7 +27,7 @@ class AnnulationSortieController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Etat::class);
 
         if ($annulationForm->isSubmitted()) {
-            $etat=$repository->find(7);
+            $etat=$etatRepository->find(6);
             $sortie->setEtat($etat);
             $em->persist($sortie);
             $em->flush();

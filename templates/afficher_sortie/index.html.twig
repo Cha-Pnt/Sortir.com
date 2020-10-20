@@ -3,5 +3,53 @@
 {% block title %}Hello AfficherSortieController!{% endblock %}
 
 {% block body %}
-    {{ form(formSortie) }}
+    {{ form_start(formSortie) }}
+    <div class="container">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.nom, {'attr':{'placeholder':'nom','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.campus, {'attr':{'placeholder':'campus','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.dateHeureDebut, {'attr':{'placeholder':'dateHeureDebut','class':'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.duree, {'attr':{'placeholder':'duree','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.nbInscriptionsMax, {'attr':{'placeholder':'nbInscriptionsMax','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.dateLimite, {'attr':{'placeholder':'dateLimite','class':'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.etat, {'attr':{'placeholder':'etat','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.organisateur, {'attr':{'placeholder':'organisateur','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.nbInscrits, {'attr':{'placeholder':'nbInscrits','class':'form-control'}}) }}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.description, {'attr':{'placeholder':'description','class':'form-control'}}) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                {{ form_row(formSortie.lieu, {'attr':{'placeholder':'lieu','class':'form-control'}}) }}
+            </div>
+        </div>
+        {{ form_widget(formSortie.enregistrer, {'attr':{'class':'btn btn-success'}}) }}
+        {{ form_widget(formSortie.publierLaSortie, {'attr':{'class':'btn btn-primary'}}) }}
+        {{ form_widget(formSortie.annulerLaSortie, {'attr':{'class':'btn btn-danger'}}) }}
+        <a class="btn btn btn-danger" href="{{ path('accueil') }}">Annuler</a>
+    </div>
+    {{ form_end(formSortie) }}
 {% endblock %}

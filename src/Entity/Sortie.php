@@ -80,7 +80,7 @@ class Sortie
     private $nbInscrits;
 
     /**
-     * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="sortie")
+     * @ORM\OneToMany(targetEntity=Inscriptions::class, mappedBy="sortie", cascade={"remove"})
      * @ORM\JoinColumn (nullable=true)
      */
     private $inscriptions;

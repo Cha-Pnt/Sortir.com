@@ -57,10 +57,11 @@ class FiltresSortieType extends AbstractType
                 'empty_data'=>null
             ])
             ->add('etat', EntityType::class,[
-                'label'=>false,
+                'choice_label'=>'libelle',
+                'placeholder'=>'TOUS',
                 'required'=>false,
                 'class'=>Etat::class,
-                'expanded'=>true,
+                'expanded'=>false,
                 'multiple'=>true
             ])
         ;

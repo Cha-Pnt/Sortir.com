@@ -5,7 +5,7 @@
 {% block body %}
         
         <div>
-                <form>
+
                         <div>
                                 <span>Nom de la sortie : </span>
                         </div>
@@ -34,22 +34,19 @@
                                 <span>{{ sortie.lieu }}</span>
                         </div>
 
-                        {{ form(annulationForm) }}
+                        {{ form_start(annulationForm) }}
                         
-                        {# <div>
-                                <label for="motif">Motif : </label>
-                        </div>
-                        <div>
-                                <textarea></textarea>
-                        </div> #}
+                        {{ form_row(annulationForm.motif) }}
+            {{ form_row(annulationForm.delete) }}
+
+                        {{ form_end(annulationForm) }}
 {#                        <div>#}
 {#                                <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>#}
 {#                        </div>#}
-{#                        <div>#}
-{#                                <button type="" class="btn btn-primary btn-lg">Retour</button>#}
-{#                        </div>#}
+                        <div>
+                                <a href="{{ path('accueil') }}" class="btn btn-primary btn-lg">Retour</a>
+                        </div>
 
-                </form>
         </div>
 
 {% endblock %}

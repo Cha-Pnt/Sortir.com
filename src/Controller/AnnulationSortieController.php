@@ -17,25 +17,20 @@ class AnnulationSortieController extends AbstractController
     /**
      * @Route("/annulation/{id}", name="annulation_sortie", requirements={"id": "\d+"},
      *    )
-     * @param $id
-     * @param Request $request
-     * @param SortieRepository $sortieRepo
-     *
      * @return \Symfony\Component\HttpFoundation\Response|void
      */
     public function AnnulationSortie(Request $request, $id, SortieRepository $sortieRepo, EntityManagerInterface $em, EtatRepository $etatRepository)
     {
 
-
-       $annulationForm = $this-> createForm(AnnulationSortieType::class);
-       $annulationForm->handleRequest($request);
+        $annulationForm = $this-> createForm(AnnulationSortieType::class);
+        $annulationForm->handleRequest($request);
         $sortieRepo = $this->getDoctrine()->getRepository(Sortie::class);
         $sortie = $sortieRepo->find($id);
 
         if ($annulationForm->isSubmitted()) {
             $coucou = 'coucou';
             dump($coucou);
-            $etat=$etatRepository->findOneBy(['libelle', 'Annulée']);
+            $etat=$etatRepository->find(7);
             $sortie->setEtat($etat);
             $em->persist($sortie);
             $em->flush();
@@ -43,16 +38,5 @@ class AnnulationSortieController extends AbstractController
         }
         return $this->render('annulation_sortie/annulation.html.twig', ["annulationForm" => $annulationForm ->createView(), 'sortie' => $sortie
             ]);
-            //$parametres = $annulationForm->getData();
-
-
-
-
-            //return $this->redirectToRoute('accueil');
-
-
-
-
-
     }
 }

@@ -63,7 +63,10 @@
                     {% elseif sortie.etat.libelle == "Passée"%}
                         <a href="{{ path('afficherSortie',{'id':sortie.id}) }}">Afficher</a>
                         {% else %}
-                            <a href="{{ path('modifierSortie',{'id':sortie.id}) }}">Modifier</a> - <a href="{{ path('annulation_sortie', {'id':sortie.id}) }}">Supprimer</a>
+                            <a href="{{ path('modifierSortie',{'id':sortie.id}) }}">Modifier</a> -
+                            {% if sortie.etat.libelle != "Annulée" %}
+                            <a href="{{ path('annulation_sortie', {'id':sortie.id}) }}">Supprimer</a>
+                            {% endif %}
                     {% endif %}
                 </td>
             </tr>

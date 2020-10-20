@@ -37,15 +37,13 @@
                         {{ form_start(annulationForm) }}
                         
                         {{ form_row(annulationForm.motif) }}
-            {{ form_row(annulationForm.delete) }}
 
-                        {{ form_end(annulationForm) }}
-{#                        <div>#}
-{#                                <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>#}
-{#                        </div>#}
                         <div>
-                                <a href="{{ path('accueil') }}" class="btn btn-primary btn-lg">Retour</a>
+                            {{ form_widget(annulationForm.enregistrer, {'attr':{'class':'btn btn-success'}}) }}
+                            <a href="{{ path('accueil') }}" class="btn btn-primary btn-lg">Retour</a>
                         </div>
+
+            {{ form_end(annulationForm) }}
 
         </div>
 

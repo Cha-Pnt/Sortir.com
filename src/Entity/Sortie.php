@@ -85,6 +85,11 @@ class Sortie
      */
     private $inscriptions;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $motif;
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
@@ -257,6 +262,18 @@ class Sortie
                 $inscription->setSortie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMotif(): ?string
+    {
+        return $this->motif;
+    }
+
+    public function setMotif(?string $motif): self
+    {
+        $this->motif = $motif;
 
         return $this;
     }

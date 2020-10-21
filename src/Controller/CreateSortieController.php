@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 use App\Entity\Etat;
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\CreateSortieType;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CreateSortieController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/createSortie", name="create_sortie")
      */
     public function index(Request $request,EntityManagerInterface $em)

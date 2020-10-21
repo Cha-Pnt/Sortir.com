@@ -137,7 +137,11 @@
 
     <div class="create">
 
-        <a class="btn btn-primary" href="{{ path('create_sortie')}}">Créer une sortie</a>
+        <div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-primary" href="{{ path('create_sortie')}}">Créer une sortie</a>
+            {% endif %}
+        </div>
 
     </div>
 {% endblock %}

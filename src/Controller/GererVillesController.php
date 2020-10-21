@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GererVillesController extends AbstractController
 {
     /**
-     * @Route("/villes", name="gerer_villes")
+     * @Route("admin/villes", name="gerer_villes")
      */
     public function addVille(EntityManagerInterface $em, Request $request)
     {

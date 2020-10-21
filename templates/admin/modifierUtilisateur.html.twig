@@ -15,8 +15,70 @@
                     <div class="row">
                         <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://i.redd.it/ajdo2kqr4c421.jpg" class="img-circle img-responsive"> </div>
                         <div class=" col-md-9 col-lg-9 ">
-                          {{ form(userForm) }}
+                          {{ form_start(userForm) }}
 {#                            <a href="{{ path("accueil") }}" class="btn btn-primary">Retour</a>#}
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    {{ form_label(userForm.pseudo) }}
+                                </div>
+                                <div class="col-sm-10">
+                                    {{ form_widget(userForm.pseudo) }}
+                                </div>
+                                <br><br>
+
+                                <div class="col-sm-2">
+                                    {{ form_label(userForm.nom) }}
+                                </div>
+                                <div class="col-sm-10">
+                                    {{ form_widget(userForm.nom) }}
+                                </div>
+                                <br><br>
+
+                                <div class="col-sm-2">
+                                    {{ form_label(userForm.prenom) }}
+                                </div>
+                                <div class="col-sm-10">
+                                    {{ form_widget(userForm.prenom) }}
+                                </div>
+                                <br><br>
+
+                                <div class="col-sm-2">
+                                    {{ form_label(userForm.phone) }}
+                                </div>
+                                <div class="col-sm-10">
+                                    {{ form_widget(userForm.phone) }}
+                                </div>
+                                <br><br>
+
+                                <div class="col-sm-2">
+                                    {{ form_label(userForm.mail) }}
+                                </div>
+                                <div class="col-sm-10">
+                                    {{ form_widget(userForm.mail) }}
+                                </div>
+                                <br><br>
+
+                                {% for role in userForm.roles %}
+                                <div class="col-sm-2">
+                                    {{ form_label(role) }}
+                                </div>
+                                <div class="col-sm-10">
+                                    {{ form_widget(role) }}
+                                </div>
+                                <br><br>
+                                {% endfor %}
+
+                                <div class="col-sm-2">
+                                    {{ form_label(userForm.campus) }}
+                                </div>
+                                <div class="col-sm-10">
+                                    {{ form_widget(userForm.campus) }}
+                                </div>
+                                <br><br>
+
+                            </div>
+                            {{ form_widget(userForm.Valider, {'attr':{'class':'btn btn-primary'}}) }}
+                            {{ form_end(userForm) }}
                         </div>
                     </div>
                 </div>

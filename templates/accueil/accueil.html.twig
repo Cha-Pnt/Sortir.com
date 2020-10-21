@@ -12,9 +12,9 @@
         Participant : {{ app.user.pseudo }}</p>
     </div>
 
-    <div class="container">
-        <h2>Filtrer les sorties</h2><br><br>
 
+        <h2>Filtrer les sorties</h2><br><br>
+    <div class="container">
         {{ form_start(filtresForm) }}
         <div class="row">
 
@@ -55,9 +55,11 @@
             </div>
 
             <div class="col-sm-6">
-                <div>
-                    {{ form_label(filtresForm.organisateur) }}
+                <div class="col-sm-1">
                     {{ form_widget(filtresForm.organisateur) }}
+                </div>
+                <div class="col-sm-11">
+                    {{ form_label(filtresForm.organisateur) }}
                 </div>
                 <br>
 
@@ -67,8 +69,10 @@
                 </div>
                 <br>
 
-                <div>
+                <div class="col-sm-3">
                     {{ form_label(filtresForm.etat) }}
+                </div>
+                <div>
                     {{ form_widget(filtresForm.etat) }}
                 </div>
             </div>
@@ -136,12 +140,6 @@
     </table>
 
     <div class="create">
-
-        <div>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a class="btn btn-primary" href="{{ path('create_sortie')}}">Créer une sortie</a>
-            {% endif %}
-        </div>
-
+        <a class="btn btn-primary" href="{{ path('create_sortie')}}">Créer une sortie</a>
     </div>
 {% endblock %}

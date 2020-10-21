@@ -7,7 +7,7 @@
 {% block body %}
     <div class="date-nom">
         <p>Date du jour : {{ 'now' |date('d/m/Y') }}<br>
-        Participant : {# to do : ajouter le nom du participant #}</p>
+        Participant : {{ app.user.pseudo }}</p>
     </div>
 
     <div>
@@ -47,7 +47,7 @@
                 <td>{%  for inscription in sortie.inscriptions %}
                         {% if inscription.participant == app.user %} X {% endif %}
                     {% endfor%}</td>
-                <td>{{ sortie.organisateur }}</td>
+                <td><a href="{{ path('afficherProfil', {'id':sortie.organisateur.id}) }}">{{ sortie.organisateur }}</a></td>
                 <td>{% if sortie.organisateur != app.user%}
                             {% if sortie.id in listeInscriptions %}
                                 <a href="{{ path('afficherSortie',{'id':sortie.id}) }}">Afficher</a> -

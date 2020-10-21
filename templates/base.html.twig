@@ -22,11 +22,14 @@
         <h1>Sortir.com</h1>
         <p>Bla Bla Bla Bla Bla Bla *4 :P</p>
     </div>
+
+    {% block nav %}
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="{{ path('accueil') }}">Sortir.com</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -62,6 +65,7 @@
             </ul>
         </div>
     </nav>
+    {% endblock %}
         {% block body %}{% endblock %}
     <div class="jumbotron text-center" style="margin-bottom:0; padding:1em">
         <p>Footer</p>

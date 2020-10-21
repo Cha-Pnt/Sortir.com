@@ -1,13 +1,13 @@
 .container{
     display: flex;
     justify-content: center;
+    width: 100%;
+    min-height: 100vh;
 
 }
 
-form{
+.form{
     width: 30%;
 }
 
-.group{
-    flex-direction: column;
-}
+

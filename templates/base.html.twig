@@ -19,7 +19,7 @@
     <body>
     <div class="jumbotron text-center upperJumbotron" style="margin-bottom:0">
         <h1>Sortir.com</h1>
-        <p>Bla Bla Bla Bla Bla Bla *4 :P</p>
+        <p></p>
     </div>
 
     {% block nav %}
@@ -61,9 +61,13 @@
     </nav>
     {% endblock %}
         {% block body %}{% endblock %}
-    <div class="jumbotron text-center" style="margin-bottom:0; padding:1em">
-        <p>Footer</p>
-    </div>
+    <footer>
+        <div class="jumbotron text-center bg-dark text-white mt-4" style="margin-bottom:0; padding:1em">
+            <p>&copy;Sortir.com <br>
+            Made by Jean-Baptiste, Firas & Charlotte</p>
+        </div>
+    </footer>
+
         {% block javascript %}{% endblock %}
 
     </body>

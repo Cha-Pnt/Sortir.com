@@ -3,6 +3,8 @@
 
 {% block title %} Accueil | Sortir.com {% endblock %}
 {% block stylesheet %} {{ parent() }}{%endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">{% endblock %}
 
 {% block body %}
     <div class="date-nom">
@@ -10,20 +12,79 @@
         Participant : {{ app.user.pseudo }}</p>
     </div>
 
-    <div>
-        <h3>Filtrer les sorties</h3>
+    <div class="container">
+        <h2>Filtrer les sorties</h2><br><br>
+
         {{ form_start(filtresForm) }}
+        <div class="row">
 
-        {{ form_widget(filtresForm) }}
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{ form_label(filtresForm.campus) }}
+                    </div>
+                    <div class="col-sm-9">
+                        {{ form_widget(filtresForm.campus) }}
+                    </div>
+                    <br><br>
 
-        <button type="submit" class="btn btn-primary btn-lg">Rechercher</button>
-        <a href="{{ path('accueil') }}"><button type="button"  class="btn btn-primary btn-lg">Réinitialiser</button></a>
+                    <div class="col-sm-3">
+                        {{ form_label(filtresForm.search) }}
+                    </div>
+                    <div class="col-sm-9">
+                        {{ form_widget(filtresForm.search) }}
+                    </div>
+                    <br><br>
 
+                    <div class="col-sm-3">
+                        {{ form_label(filtresForm.dateDebut) }}
+                    </div>
+                    <div class="col-sm-9">
+                        {{ form_widget(filtresForm.dateDebut) }}
+                    </div>
+                    <br><br>
+
+                    <div class="col-sm-3">
+                        {{ form_label(filtresForm.dateLimite) }}
+                    </div>
+                    <div class="col-sm-9">
+                        {{ form_widget(filtresForm.dateLimite) }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6">
+                <div>
+                    {{ form_label(filtresForm.organisateur) }}
+                    {{ form_widget(filtresForm.organisateur) }}
+                </div>
+                <br>
+
+                <div>
+                    {{ form_label(filtresForm.inscription) }}
+                    {{ form_widget(filtresForm.inscription) }}
+                </div>
+                <br>
+
+                <div>
+                    {{ form_label(filtresForm.etat) }}
+                    {{ form_widget(filtresForm.etat) }}
+                </div>
+            </div>
+
+        </div>
+        <div class="button_side">
+            <button type="submit" class="btn btn-primary btn-lg">Rechercher</button>
+            <a href="{{ path('accueil') }}"><button type="button"  class="btn btn-primary btn-lg">Réinitialiser</button></a>
+        </div>
         {{ form_end(filtresForm) }}
     </div>
 
+
+
     <table class="table">
-        <thead class="thead-light">
+        <thead class="thead-dark">
 
         <tr>
             <th scope="col">Nom de la sortie</th>
@@ -74,7 +135,7 @@
         </tbody>
     </table>
 
-    <div>
+    <div class="create">
 
         <a class="btn btn-primary" href="{{ path('create_sortie')}}">Créer une sortie</a>
 

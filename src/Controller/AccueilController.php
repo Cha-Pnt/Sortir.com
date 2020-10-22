@@ -34,20 +34,21 @@ class AccueilController extends AbstractController
      */
     public function affichageSortie(Request $request, EntityManagerInterface $em,SortieRepository $sortieRepo, ParticipantRepository $participantRepository,InscriptionsRepository $repoInscriptions,EtatRepository $repoEtat)
     {
+        if ($this->getUser()){
         $recherche = new Recherche();
         //Liste les inscriptions de l'utilisateur connecté
         $user = $this->getUser();
-        $listeInscriptionsUser=[];
-        $listeInscriptions=$repoInscriptions->findAll();
-        foreach ($listeInscriptions as $inscription){
-            if ($inscription->getParticipant() == $user ){
-                $listeInscriptionsUser[]=$inscription;
+        $listeInscriptionsUser = [];
+        $listeInscriptions = $repoInscriptions->findAll();
+        foreach ($listeInscriptions as $inscription) {
+            if ($inscription->getParticipant() == $user) {
+                $listeInscriptionsUser[] = $inscription;
             }
         }
         //dd($listeInscriptionsUser);
-        $tableauSortiesInscrits=[];
+        $tableauSortiesInscrits = [];
         //Création d'un tableau des id des sorties auquel l'utilisateur s'est inscrit
-        if($listeInscriptionsUser != null){
+        if ($listeInscriptionsUser != null) {
             foreach ($listeInscriptionsUser as $inscription) {
                 $tableauSortiesInscrits[] = $inscription->getSortie()->getId();
             }
@@ -58,49 +59,53 @@ class AccueilController extends AbstractController
         $filtresForm = $this->createForm(FiltresSortieType::class, $recherche);
         $filtresForm->handleRequest($request);
 
-        if($filtresForm->isSubmitted()) {
-            $parametres=$filtresForm->getData();
-           $listeSorties=$sortieRepo->findByParametres($parametres,$user,$participantRepository);
+        if ($filtresForm->isSubmitted() && $filtresForm->isValid()) {
+            $parametres = $filtresForm->getData();
+            $listeSorties = $sortieRepo->findByParametres($parametres, $user, $participantRepository);
             return $this->render('accueil/accueil.html.twig', [
                     "filtresForm" => $filtresForm->createView(),
-                    'listeSorties'=>$listeSorties,'user'=>$this->getUser(),
-                    'listeInscriptions'=>$tableauSortiesInscrits,
-                    'dateActuelle'=>$dateActuelle]
+                    'listeSorties' => $listeSorties, 'user' => $this->getUser(),
+                    'listeInscriptions' => $tableauSortiesInscrits,
+                    'dateActuelle' => $dateActuelle]
             );
-        }else {
+        } else {
             //Affichage de la liste des sorties
-                $listeSorties = $sortieRepo->findAll();
-                $etatPasse = $repoEtat->findOneBy(['libelle'=>'passée']);
-                foreach ($listeSorties as $sortie){
-                    //vérifie l'état de la sortie
-                    if($sortie->getDateHeureDebut() < $dateActuelle && $sortie->getEtat()->getLibelle() != "Annulée"){
-                        $sortie->setEtat($etatPasse);
-                        //Vérifie l'état des sorties en fonction de la date
-                    }else if ($sortie->getDateLimite() < $dateActuelle && $sortie->getDateHeureDebut() > $dateActuelle ){
-                        $etatPasse = $repoEtat->findOneBy(['libelle'=>'clôturée']);
-                        $sortie->setEtat($etatPasse);
-                        //Vérifie si la sortie s'est finie depuis au moins 1 moins si oui elle est archivée et supprimée de la liste des sorties
-                    }else if($sortie->getDateHeureDebut()->diff($dateActuelle)->m >= 1 ){
-                        $archive = new Archive();
-                        $archive->setNom($sortie->getNom());
-                        $archive->setCampus($sortie->getCampus());
-                        $archive->setDateDebut($sortie->getDateHeureDebut());
-                        $archive->setDateCloture($sortie->getDateLimite());
-                        $archive->setDuree($sortie->getDuree());
-                        $archive->setEtat($sortie->getEtat());
-                        $archive->setLieu($sortie->getLieu());
-                        $em->persist($archive);
-                        $em->remove($sortie);
-                        $em->flush();
-                        return $this->redirectToRoute('accueil');
-                    }
+            $listeSorties = $sortieRepo->findAll();
+            $etatPasse = $repoEtat->findOneBy(['libelle' => 'passée']);
+            foreach ($listeSorties as $sortie) {
+                //vérifie l'état de la sortie
+                if ($sortie->getDateHeureDebut() < $dateActuelle && $sortie->getEtat()->getLibelle() != "Annulée") {
+                    $sortie->setEtat($etatPasse);
+                    //Vérifie l'état des sorties en fonction de la date
+                } else if ($sortie->getDateLimite() < $dateActuelle && $sortie->getDateHeureDebut() > $dateActuelle) {
+                    $etatPasse = $repoEtat->findOneBy(['libelle' => 'Clôturée']);
+                    $sortie->setEtat($etatPasse);
+                    //Vérifie si la sortie s'est finie depuis au moins 1 moins si oui elle est archivée et supprimée de la liste des sorties
                 }
-                return $this->render('accueil/accueil.html.twig', [
+                if ($sortie->getDateHeureDebut()->diff($dateActuelle)->m >= 1) {
+                    $archive = new Archive();
+                    $archive->setNom($sortie->getNom());
+                    $archive->setCampus($sortie->getCampus());
+                    $archive->setDateDebut($sortie->getDateHeureDebut());
+                    $archive->setDateCloture($sortie->getDateLimite());
+                    $archive->setDuree($sortie->getDuree());
+                    $archive->setEtat($sortie->getEtat());
+                    $archive->setLieu($sortie->getLieu());
+                    $em->persist($archive);
+                    $em->remove($sortie);
+                    $em->flush();
+                    return $this->redirectToRoute('accueil');
+                }
+            }
+            return $this->render('accueil/accueil.html.twig', [
                     "filtresForm" => $filtresForm->createView(),
-                        'listeSorties'=>$listeSorties,'user'=>$this->getUser(),
-                        'listeInscriptions'=>$tableauSortiesInscrits,
-                        'dateActuelle'=>$dateActuelle]
+                    'listeSorties' => $listeSorties, 'user' => $this->getUser(),
+                    'listeInscriptions' => $tableauSortiesInscrits,
+                    'dateActuelle' => $dateActuelle]
             );
         }
+    }else{
+            return $this->redirectToRoute('app_login');
+    }
     }
 }

@@ -42,7 +42,7 @@ class ModifierUtilisateurType extends AbstractType
                 'label' => 'Roles'
             ])
             ->add('campus')
-    ->add('Valider',SubmitType::class)
+    ->add('Valider',SubmitType::class, ['label' => 'Valider'])
         ;
     }
 

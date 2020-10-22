@@ -8,11 +8,15 @@
 
 {% block body %}
     <div class="date-nom">
-        <p>Date du jour : {{ 'now' |date('d/m/Y') }}<br>
-        Participant : {{ app.user.pseudo }}</p>
+        <p id="connection">Date du jour : {{ 'now' |date('d/m/Y') }}<br>
+         {{ app.user.pseudo }} :Connecté</p>
     </div>
 
-
+    {% for message in app.flashes('success') %}
+        <div class="flash-success">
+            {{ message }}
+        </div>
+    {% endfor %}
         <h2>Filtrer les sorties</h2><br><br>
     <div class="container">
         {{ form_start(filtresForm) }}

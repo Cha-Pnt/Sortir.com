@@ -48,11 +48,10 @@ class FiltresSortieType extends AbstractType
                 'label' => "Sorties dont je suis l'organisateur/trice", 'required' => false
             ])
             ->add('inscription', ChoiceType::class, [
-                'placeholder' => false,
+                'label'=>' ',
                 'required' => false,
                 'choices' => [
                     'Sorties auxquelles je suis inscrit' => 'oui',
-                    'Sorties auxquelles je ne suis pas inscrit' => 'non',
                 ],
                 'choice_attr' => function ($choice, $key, $value) {
                     return ['class' => 'inscription_' . strtolower($value)];
@@ -62,12 +61,13 @@ class FiltresSortieType extends AbstractType
             ])
             ->add('etat', EntityType::class, [
                 'class' => Etat::class,
-//                'placeholder'=>'TOUS',
+                'placeholder' => 'TOUS',
                 'choice_label' => 'libelle',
                 'required' => false,
-//                'expanded'=>false,
-                'multiple' => true
+                'empty_data' => null,
+
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

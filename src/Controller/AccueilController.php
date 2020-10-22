@@ -14,6 +14,7 @@ use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use http\Env\Response;
 use mysql_xdevapi\Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +24,7 @@ class AccueilController extends AbstractController
 
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/accueil", name="accueil")
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -58,7 +60,7 @@ class AccueilController extends AbstractController
         $filtresForm = $this->createForm(FiltresSortieType::class, $recherche);
         $filtresForm->handleRequest($request);
 
-        if($filtresForm->isSubmitted()) {
+        if($filtresForm->isSubmitted() && $filtresForm->isValid()) {
             $parametres=$filtresForm->getData();
            $listeSorties=$sortieRepo->findByParametres($parametres,$user,$participantRepository);
             return $this->render('accueil/accueil.html.twig', [
@@ -77,10 +79,10 @@ class AccueilController extends AbstractController
                         $sortie->setEtat($etatPasse);
                         //Vérifie l'état des sorties en fonction de la date
                     }else if ($sortie->getDateLimite() < $dateActuelle && $sortie->getDateHeureDebut() > $dateActuelle ){
-                        $etatPasse = $repoEtat->findOneBy(['libelle'=>'clôturée']);
+                        $etatPasse = $repoEtat->findOneBy(['libelle'=>'Clôturée']);
                         $sortie->setEtat($etatPasse);
                         //Vérifie si la sortie s'est finie depuis au moins 1 moins si oui elle est archivée et supprimée de la liste des sorties
-                    }else if($sortie->getDateHeureDebut()->diff($dateActuelle)->m >= 1 ){
+                    }if($sortie->getDateHeureDebut()->diff($dateActuelle)->m >= 1 ){
                         $archive = new Archive();
                         $archive->setNom($sortie->getNom());
                         $archive->setCampus($sortie->getCampus());

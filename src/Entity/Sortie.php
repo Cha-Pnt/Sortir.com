@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
@@ -27,6 +28,10 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Range(
+     *     min="now",
+     * minMessage="Vous ne pouvez choisir une date antérieure à la date du jour")
+     *
      */
     private $dateHeureDebut;
 
@@ -37,6 +42,15 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Range (
+     *     min="now",
+     * minMessage="Vous ne pouvez pas choisir une date antérieure à la date du jour")
+     * @Assert\Expression(
+     *     "this.getDateLimite() <= this.getDateHeureDebut()",
+     * message="La date limite d'inscription ne peut dépasser celle de la sortie"
+     * )
+     *
+     *
      */
     private $dateLimite;
 

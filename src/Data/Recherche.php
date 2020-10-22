@@ -4,6 +4,7 @@ namespace App\Data;
 
 
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Participant;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
@@ -41,9 +42,9 @@ class Recherche{
     public $inscription;
 
     /**
-     * @var array
+     * @var Etat
      */
-    public $etat=[];
+    public $etat;
 
 
 

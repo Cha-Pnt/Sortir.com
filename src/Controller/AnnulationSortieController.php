@@ -24,7 +24,7 @@ class AnnulationSortieController extends AbstractController
 
         $annulationForm = $this-> createForm(AnnulationSortieType::class,$sortie);
         $annulationForm->handleRequest($request);
-        $repository = $this->getDoctrine()->getRepository(Etat::class);
+//        $repository = $this->getDoctrine()->getRepository(Etat::class);
 
         if ($annulationForm->isSubmitted()) {
             $etat=$etatRepository->find(6);

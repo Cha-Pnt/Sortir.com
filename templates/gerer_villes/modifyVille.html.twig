@@ -21,27 +21,25 @@
                                 <th>Actions</th>
                                 </thead>
                                 <tbody>
-                                {% for ville in villes %}
+                                {{ form_start(villeForm) }}
                                     <tr>
                                         <td>{{ ville.id }}</td>
-                                        <td>{{ ville.nom }}</td>
-                                        <td>{{ ville.codePostal }}</td>
-                                        <td><a href="{{ path('adminmodify_villes',{'id': ville.id}) }}" class="btn btn-warning">Modifier</a></td>
+                                        <td>{{ form_widget(villeForm.nom) }}</td>
+                                        <td>{{ form_widget(villeForm.codePostal) }}</td>
+                                        <td> {{ form_widget(villeForm.ajouter, {'attr':{'class':'btn btn-success'},'label':'Confimer'})}}
+                                            <a href="{{ path('adminsupprimer_villes', {'id': ville.id}) }}" class="btn btn-danger">Supprimer</a> </td>
                                     </tr>
-                                {% else %}
-                                    <tr>
-                                        <td colspan="5">Pas de villes dans DATABASE</td>
-                                    </tr>
-                                {% endfor %}
+
                                 </tbody>
                             </table>
-                            <a href="{{ path("accueil") }}" class="btn btn-primary">Ajouter</a>
                         </div>
+                        {{ form_end(villeForm) }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}
 
 

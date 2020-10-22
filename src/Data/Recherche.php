@@ -7,6 +7,7 @@ use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Participant;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Recherche{
 
@@ -22,12 +23,16 @@ class Recherche{
     public $search = '';
 
     /**
-     * @var null|DateTimeType
+     * @var null|DateTime
      */
     public  $dateDebut;
 
     /**
-     * @var null|DateTimeType
+     * @var null|DateTime
+     *  @Assert\Expression(
+     *     "this.getDateLimite() <= this.getDateDebut()",
+     *  message="La date limite d'inscription ne peut dépasser celle de la sortie"
+     * )
      */
     public   $dateLimite;
 
@@ -46,7 +51,21 @@ class Recherche{
      */
     public $etat;
 
+    /**
+     * @return DateTime|null
+     */
+    public function getDateDebut(): ?\DateTime
+    {
+        return $this->dateDebut;
+    }
 
+    /**
+     * @return DateTime|null
+     */
+    public function getDateLimite(): ?\DateTime
+    {
+        return $this->dateLimite;
+    }
 
 
 

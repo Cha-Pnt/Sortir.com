@@ -6,6 +6,7 @@ use App\Data\Recherche;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,9 +18,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SortieRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    /**
+     * @var ManagerRegistry
+     */
+    private $registry;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $em)
     {
         parent::__construct($registry, Sortie::class);
+        $this->em = $em;
+        $this->registry = $registry;
     }
 
     //Récupère les sorties selon les critères de recherche
@@ -59,11 +73,16 @@ class SortieRepository extends ServiceEntityRepository
                     ->andWhere('i.participant = :user')
                     ->setParameter('user', $participant);
             } else if (($parametres->inscription) == 'non') {
+                $subqb =
+                    $this->createQueryBuilder('so')
+                    ->join('so.inscriptions', 'i')
+                    ->andWhere('i.participant = :user');
+
                 $qb = $qb
-                    ->join('s.inscriptions', 'i')
-                    ->andWhere('i.participant != :user')
-                    ->andWhere('i is null')
+                    ->andWhere('s.id NOT IN (' . $subqb->getDQL() . ')')
                     ->setParameter('user', $participant);
+
+                return $qb->getQuery()->getResult();
             }
         }
         if(!empty($parametres->etat)){
@@ -73,6 +92,9 @@ class SortieRepository extends ServiceEntityRepository
         }
         return $qb->getQuery()->getResult();
 
+    }
+    public function findAll(){
+        return $this->findBy(array(), array('dateLimite' => 'ASC'));
     }
 
     // /**

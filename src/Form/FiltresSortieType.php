@@ -42,16 +42,18 @@ class FiltresSortieType extends AbstractType
                 'label' => " et ",
                 'required' => false,
                 'empty_data' => '',
-                'widget' => 'single_text'
+                'widget' => 'single_text',
             ])
             ->add('organisateur', CheckboxType::class, [
                 'label' => "Sorties dont je suis l'organisateur/trice", 'required' => false
             ])
             ->add('inscription', ChoiceType::class, [
-                'label'=>' ',
+                'label' => ' ',
+                'placeholder'=>null,
                 'required' => false,
                 'choices' => [
                     'Sorties auxquelles je suis inscrit' => 'oui',
+                    'Sorties auxquelles je ne suis pas inscrit' => 'non',
                 ],
                 'choice_attr' => function ($choice, $key, $value) {
                     return ['class' => 'inscription_' . strtolower($value)];

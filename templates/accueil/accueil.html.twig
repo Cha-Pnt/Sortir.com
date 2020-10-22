@@ -134,7 +134,7 @@
                         {% else %}
                             <a href="{{ path('modifierSortie',{'id':sortie.id}) }}">Modifier</a> -
                             {% if sortie.etat.libelle != "Annulée" %}
-                            <a href="{{ path('annulation_sortie', {'id':sortie.id}) }}">Supprimer</a>
+                            <a href="{{ path('annulation_sortie', {'id':sortie.id}) }}">Annuler</a>
                             {% endif %}
                     {% endif %}
                 </td>

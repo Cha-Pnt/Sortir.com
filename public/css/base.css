@@ -11,6 +11,10 @@ footer{
     bottom: 0;
 }
 
+.navbar-brand{
+    height: inherit;
+}
+
 body {
     display: flex;
     flex-direction: column;

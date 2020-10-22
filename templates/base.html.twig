@@ -13,8 +13,9 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         {% endblock %}
-        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+
         <link rel="shortcut icon" href="{{ asset('icone/laugh.png') }}"/>
 
         {% block head %}{% endblock %}
@@ -27,7 +28,9 @@
 
     {% block nav %}
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="{{ path('accueil') }}"><img src="{{ asset('icone/laugh64.png') }}" alt="logo"></a>
+        <div class="logo">
+            <a class="navbar-brand" href="{{ path('accueil') }}"><img src="{{ asset('icone/laugh64.png') }}" alt="logo"></a>
+        </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

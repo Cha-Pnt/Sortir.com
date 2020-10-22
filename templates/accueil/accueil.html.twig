@@ -9,7 +9,7 @@
 {% block body %}
     <div class="date-nom">
         <p id="connection">Date du jour : {{ 'now' |date('d/m/Y') }}<br>
-         {{ app.user.pseudo }} :Connecté</p>
+         {{ app.user.pseudo }} : Connecté</p>
     </div>
 
     {% for message in app.flashes('success') %}

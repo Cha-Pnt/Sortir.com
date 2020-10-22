@@ -3,8 +3,62 @@
 {% block title %}Hello GererVillesController!{% endblock %}
 
 {% block body %}
-    <h1>Gérer les villes</h1>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Liste des villes</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://i.redd.it/ajdo2kqr4c421.jpg" class="img-circle img-responsive"> </div>
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table" id="editableTable">
+                                <thead>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Code Postal</th>
+                                <th>Actions</th>
+                                </thead>
+                                <tbody>
+                                {% for ville in villes %}
+                                    <tr>
+                                        <td>{{ ville.id }}</td>
+                                        <td>{{ ville.nom }}</td>
+                                        <td>{{ ville.codePostal }}</td>
+                                        <td><a href="{{ path('adminmodifier_utilisateur',{'id': ville.id}) }}" class="btn btn-warning">Modifier</a></td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">Pas de villes dans DATABASE</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <a href="{{ path("accueil") }}" class="btn btn-primary">Ajouter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function (){
+            $('#editableTable').Tabledit({
 
-
-
+              columns:{
+                  identifier: [0,'id'],
+                  editable:[[0,'nom'],[2,'codePostal']]
+              },
+                restoreButton: false,
+                onSuccess:function (data,textStatus,jqXHR){
+                  if (data.action == 'delete'){
+                      $('#'+data.id).remove();
+                  }
+                }
+            });
+        });
+    </script>
 {% endblock %}
+
+

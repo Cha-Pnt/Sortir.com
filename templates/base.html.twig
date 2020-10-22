@@ -7,20 +7,23 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <link rel="stylesheet" href="{{ asset('css/base.css') }}">
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+            <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@800&display=swap" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="jquery.tabledit.min.js"></script>
         {% endblock %}
-        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+
         {% block head %}{% endblock %}
     </head>
     <body>
     <div class="jumbotron text-center upperJumbotron" style="margin-bottom:0">
         <h1>Sortir.com</h1>
-        <p></p>
+        <p style="font-family: 'Sansita Swashed', cursive;">"A mind that is stretched by a new experience can never go back to its old dimensions"</p>
     </div>
 
     {% block nav %}

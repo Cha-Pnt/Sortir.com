@@ -25,3 +25,7 @@ body {
 .btn{
     font-size: 110%;
 }
+
+.navbar{
+    border-radius: 0;
+}

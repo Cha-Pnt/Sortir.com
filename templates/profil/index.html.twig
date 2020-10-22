@@ -11,8 +11,11 @@
         <div class="row">
             <div class="col-sm-3"><!--left col-->
                 <div class="text-center">
+                    {% if app.user .imageName %}
+                    <img src="{{ asset('uploads/'~ app.user.imageName) }}" class="avatar img-circle img-thumbnail" alt="avatar">
+                    {% else %}
                     <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                    <h6>Upload a different photo...</h6>
+                    {% endif %}
                     {{ form_row(formUser.file) }}
 
                 </div></hr><br>

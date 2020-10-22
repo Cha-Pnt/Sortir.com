@@ -62,12 +62,13 @@ class FiltresSortieType extends AbstractType
             ])
             ->add('etat', EntityType::class, [
                 'class' => Etat::class,
-//                'placeholder'=>'TOUS',
+                'placeholder' => 'TOUS',
                 'choice_label' => 'libelle',
                 'required' => false,
-//                'expanded'=>false,
-                'multiple' => true
+                'empty_data' => null,
+
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -4,11 +4,9 @@
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
     background-size: 100% 100%;
-    color: white;
 }
 
 footer{
-    margin-top: 15%;
     width: 100%;
     bottom: 0;
 }
@@ -21,16 +19,13 @@ body {
 }
 
 .main{
-
     flex: 1 0 auto;
 }
 
 .btn{
     font-size: 110%;
 }
-nav{
-    background-color: white;
-}
-ul{
-    color:red;
+
+.navbar{
+    border-radius: 0;
 }

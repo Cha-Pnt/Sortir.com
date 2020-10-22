@@ -18,7 +18,7 @@ class AnnulationSortieType extends AbstractType
             ->add('motif', TextareaType::class, [
                 'label' => "Motif de l'annulation"
             ])
-            ->add('enregistrer', SubmitType::class, ['label' => 'Enregistrer'])
+            ->add('confirmer', SubmitType::class, ['label' => 'Confirmer'])
         ;
     }
 

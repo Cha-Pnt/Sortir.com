@@ -74,13 +74,16 @@ class AccueilController extends AbstractController
                 $listeSorties = $sortieRepo->findAll();
                 $etatPasse = $repoEtat->findOneBy(['libelle'=>'passée']);
                 foreach ($listeSorties as $sortie){
+
                     //vérifie l'état de la sortie
                     if($sortie->getDateHeureDebut() < $dateActuelle && $sortie->getEtat()->getLibelle() != "Annulée"){
                         $sortie->setEtat($etatPasse);
+
                         //Vérifie l'état des sorties en fonction de la date
                     }else if ($sortie->getDateLimite() < $dateActuelle && $sortie->getDateHeureDebut() > $dateActuelle ){
                         $etatPasse = $repoEtat->findOneBy(['libelle'=>'Clôturée']);
                         $sortie->setEtat($etatPasse);
+
                         //Vérifie si la sortie s'est finie depuis au moins 1 moins si oui elle est archivée et supprimée de la liste des sorties
                     }if($sortie->getDateHeureDebut()->diff($dateActuelle)->m >= 1 ){
                         $archive = new Archive();

@@ -1,50 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} Annuler Sortie | Sortir.com{% endblock %}
-
+{% block stylesheet %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/annulation.css') }}">
+{% endblock %}
 {% block body %}
         
-        <div>
+        <div class=" container detail">
 
-                        <div>
-                                <span>Nom de la sortie : </span>
-                        </div>
-                        <div>
-                                <span>{{ sortie.nom }}</span>
-                        </div>
-                        
-                        <div>
-                                <span>Date de la sortie : </span>
-                        </div>
-                        <div>
-                                <span>{{ sortie.dateHeureDebut | date('d/m/Y') }}</span>
-                        </div>
-                        
-                        <div>
-                                <span>Campus : </span>
-                        </div>
-                        <div>
-                                <span>{{ sortie.campus }}</span>
-                        </div>
-                        
-                        <div>
-                                <span>Lieu : </span>
-                        </div>
-                        <div>
-                                <span>{{ sortie.lieu }}</span>
-                        </div>
+                        <div class="row min-vw-100 lignes">
+                            <div class="col-md-12 ligne">
+                                <span><strong>Nom de la sortie : </strong>{{ sortie.nom }}</span>
+                            </div>
+                            <div class="col-md-12 ligne">
+                                <span><strong>Date de la sortie : </strong>{{ sortie.dateHeureDebut | date('d/m/Y') }}</span>
+                            </div>
 
-                        {{ form_start(annulationForm) }}
-                        
-                        {{ form_row(annulationForm.motif) }}
+                            <div class="col-md-12 ligne">
+                                <span><strong>Campus :</strong>{{ sortie.campus }}</span>
+                            </div>
 
-                        <div>
-                            {{ form_widget(annulationForm.enregistrer, {'attr':{'class':'btn btn-success'}}) }}
-                            <a href="{{ path('accueil') }}" class="btn btn-primary btn-lg">Retour</a>
+                            <div class="col-md-12 ligne">
+                                <span><strong>Lieu : </strong>{{ sortie.lieu }}</span>
+                            </div>
+                            <div class="col-md-12 ligne">
+                                {{ form_start(annulationForm) }}
+                                <p><strong>Motif:</strong></p>
+                                {{ form_widget(annulationForm.motif,{ 'attr': {'cols': '50','rows' :'10'} })}}</div>
+                            <div class="col-md-12 ligne">
+                                 {{ form_widget(annulationForm.confirmer, {'attr':{'class':'btn btn-success'}}) }}
+                                <a href="{{ path('accueil') }}" class="btn btn-primary btn-lg">Retour</a>
+                                {{ form_end(annulationForm) }}
+                             </div>
+
+
                         </div>
-
-            {{ form_end(annulationForm) }}
-
         </div>
 
 {% endblock %}

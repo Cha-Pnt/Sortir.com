@@ -1,2 +1,18 @@
 
+.container{
+    min-width: 100%;
+    padding-top: 10% ;
+}
 
+.lignes{
+
+    display: flex;
+    min-width: 100%;
+    text-align: center;
+
+}
+.ligne{
+    margin-top:1%;
+    min-height: 5%;
+    width: 100%;
+}

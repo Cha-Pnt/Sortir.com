@@ -1,10 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CreateSortieController!{% endblock %}
+{% block title %}Créer une sortie | Sortir.com{% endblock %}
+{% block head %}<link rel="stylesheet" href="{{ asset('css/lieu.css') }}">{% endblock %}
 
 {% block body %}
 
     {{ form_start(formSortie) }}
+    <h3>Créer une sortie</h3>
     <div class="container">
         <div class="form-row">
             <div class="col-md-4 mb-3">
@@ -32,13 +34,19 @@
             <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.description, {'attr':{'placeholder':'description','class':'form-control'}}) }}
             </div>
+
             <div class="col-md-4 mb-3">
                 {{ form_row(formSortie.lieu, {'attr':{'placeholder':'lieu','class':'form-control'}}) }}
             </div>
         </div>
-        {{ form_widget(formSortie.enregistrer, {'attr':{'class':'btn btn-success'}}) }}
-        {{ form_widget(formSortie.publierLaSortie, {'attr':{'class':'btn btn-primary'}}) }}
-        <a class="btn btn btn-danger" href="{{ path('accueil') }}">Annuler</a>
+
+        <div>
+            {{ form_widget(formSortie.enregistrer, {'attr':{'class':'btn btn-success'}}) }}
+            {{ form_widget(formSortie.publierLaSortie, {'attr':{'class':'btn btn-primary'}}) }}
+            <a class="btn btn-secondary" href="{{ path('creation_lieu') }}">Ajouter un lieu</a>
+            <a class="btn btn btn-danger" href="{{ path('accueil') }}">Annuler</a>
+        </div>
+
     </div>
     {{ form_end(formSortie) }}
 {% endblock %}

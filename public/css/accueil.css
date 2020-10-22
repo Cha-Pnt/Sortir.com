@@ -21,15 +21,5 @@ h2{
 
 .create{
     margin-top: 2%;
-}
-
-.main{
-    padding: 3%;
-}
-
-@media screen and (max-device-width : 320px){
-    .create{
-        display: none;
-    }
-    
+    margin-bottom: 5%;
 }

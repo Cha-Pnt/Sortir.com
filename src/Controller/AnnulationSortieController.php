@@ -29,7 +29,7 @@ class AnnulationSortieController extends AbstractController
 //        $repository = $this->getDoctrine()->getRepository(Etat::class);
 
         if ($annulationForm->isSubmitted()) {
-            $etat=$etatRepository->find(6);
+            $etat=$etatRepository->findOneBy(['libelle'=>'Annulée']);
             $sortie->setEtat($etat);
             $em->persist($sortie);
             $em->flush();

@@ -67,9 +67,9 @@ label{
 .remember{
     font-size: 10px;
 }
-
-
-
-
-
-
+.form-control{
+    opacity:0.9;
+}
+.form-control:hover{
+    opacity:1;
+}

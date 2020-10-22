@@ -1,5 +1,5 @@
 security:
-    access_denied_url: /accueil
+    access_denied_url: /login
     encoders:
         App\Entity\Participant:
             algorithm: auto

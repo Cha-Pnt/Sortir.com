@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Form\ModifierUtilisateurType;
 use App\Repository\ParticipantRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
+ * @IsGranted("ROLE_ADMIN")
  * @Route("/admin", name="admin")
  */
 class AdminController extends AbstractController

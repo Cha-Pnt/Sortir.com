@@ -8,6 +8,7 @@ use App\Form\AnnulationSortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnnulationSortieController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/annulation/{id}", name="annulation_sortie", requirements={"id": "\d+"},
      *    )
      * @return \Symfony\Component\HttpFoundation\Response|void

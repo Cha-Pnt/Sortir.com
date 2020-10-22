@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CreateSortieController extends AbstractController
 {
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_USER")
      * @Route("/createSortie", name="create_sortie")
      */
     public function index(Request $request,EntityManagerInterface $em)

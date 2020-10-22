@@ -16,6 +16,8 @@
             <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         {% endblock %}
 
+        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+        <link rel="shortcut icon" href="{{ asset('icone/laugh.png') }}"/>
         {% block head %}{% endblock %}
     </head>
     <body>
@@ -26,7 +28,7 @@
 
     {% block nav %}
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="{{ path('accueil') }}">Sortir.com</a>
+        <a class="navbar-brand" href="{{ path('accueil') }}"><img src="{{ asset('icone/laugh64.png') }}" alt="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -68,7 +70,8 @@
     <footer>
         <div class="jumbotron text-center bg-dark text-white mt-4" style="margin-bottom:0; padding:1em">
             <p>&copy; {{ "now"|date("Y") }} Sortir.com <br>
-            Créé par Jean-Baptiste, Firas & Charlotte</p>
+            Créé par Jean-Baptiste, Firas & Charlotte<br>
+                Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
         </div>
     </footer>
 

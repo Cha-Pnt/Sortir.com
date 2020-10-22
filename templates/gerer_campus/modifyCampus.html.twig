@@ -7,7 +7,7 @@
         <div class="row">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Liste des villes</h3>
+                    <h3 class="panel-title">Liste des Campus</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -15,28 +15,26 @@
                         <div class=" col-md-9 col-lg-9 ">
                             <table class="table" id="editableTable">
                                 <thead>
-                                {% if ville %}
-                                <th>ID</th>
+                                {% if campus %}
+                                    <th>ID</th>
                                 {% endif %}
                                 <th>Nom</th>
-                                <th>Code Postal</th>
                                 <th>Actions</th>
                                 </thead>
                                 <tbody>
-                                {{ form_start(villeForm) }}
-                                    <tr>
-                                        {% if ville %}
-                                            <td>{{ ville.id }}</td>
-                                        {% endif %}
-                                        <td>{{ form_widget(villeForm.nom) }}</td>
-                                        <td>{{ form_widget(villeForm.codePostal) }}</td>
-                                        <td> {{ form_widget(villeForm.ajouter, {'attr':{'class':'btn btn-success'},'label':'Confimer'})}}
-                                    </tr>
+                                {{ form_start(campusForm) }}
+                                <tr>
+                                    {% if campus %}
+                                        <td>{{ campus.id }}</td>
+                                    {% endif %}
+                                    <td>{{ form_widget(campusForm.nom) }}</td>
+                                    <td> {{ form_widget(campusForm.ajouter, {'attr':{'class':'btn btn-success'},'label':'Confimer'})}}
+                                </tr>
 
                                 </tbody>
                             </table>
                         </div>
-                        {{ form_end(villeForm) }}
+                        {{ form_end(campusForm) }}
                     </div>
                 </div>
             </div>

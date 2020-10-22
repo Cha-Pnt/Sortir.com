@@ -11,38 +11,35 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://blog.roomgo.co.uk/wp-content/uploads/2016/04/europe.jpg" class="img-circle img-responsive"> </div>
+                        <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://world.edu/wp-content/uploads/2016/09/safe-spaces-colleges.jpg" class="img-circle img-responsive"> </div>
                         <div class=" col-md-9 col-lg-9 ">
                             <table class="table" id="editableTable">
                                 <thead>
-                                {% if ville %}
                                 <th>ID</th>
-                                {% endif %}
                                 <th>Nom</th>
-                                <th>Code Postal</th>
                                 <th>Actions</th>
                                 </thead>
                                 <tbody>
-                                {{ form_start(villeForm) }}
+                                {% for camp in campus %}
                                     <tr>
-                                        {% if ville %}
-                                            <td>{{ ville.id }}</td>
-                                        {% endif %}
-                                        <td>{{ form_widget(villeForm.nom) }}</td>
-                                        <td>{{ form_widget(villeForm.codePostal) }}</td>
-                                        <td> {{ form_widget(villeForm.ajouter, {'attr':{'class':'btn btn-success'},'label':'Confimer'})}}
+                                        <td>{{ camp.id }}</td>
+                                        <td>{{ camp.nom }}</td>
+                                        <td><a href="{{ path('adminmodify_campus',{'id': camp.id}) }}" class="btn btn-warning">Modifier</a></td>
                                     </tr>
-
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">Pas de campus dans DATABASE</td>
+                                    </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
+                            <a href="{{ path("adminajouter_campus") }}" class="btn btn-primary">Ajouter</a>
                         </div>
-                        {{ form_end(villeForm) }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 

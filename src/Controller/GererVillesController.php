@@ -52,25 +52,24 @@ class GererVillesController extends AbstractController
         ]);
     }
     /**
-     * @Route("/ville/supprimer/{id}", name="supprimer_villes")
+     * @Route("/ville/qjouter", name="ajouter_villes")
      */
-    public function supprimerVille($id)
+    public function qjouterVille(Request $request,EntityManagerInterface $em)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        if(!$id)
-        {
-            throw $this->createNotFoundException('No ID found');
+        $ville = new Villes();
+        $form = $this->createForm(VillesType::class, $ville);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($ville);
+            $em->flush();
+            return $this->redirectToRoute('admingerer_villes');
         }
 
-        $ville = $em->getRepository('App:Ville')->Find($id);
 
-        if($ville != null)
-        {
-            $em->remove($ville);
-            $em->flush();
-
-            return $this->redirectToRoute('admingerer_villes');
+        return $this->render('gerer_villes/modifyVille.html.twig', [
+        'villeForm' => $form->createView(),
+            'ville'=>null
+    ]);
 
     }
 

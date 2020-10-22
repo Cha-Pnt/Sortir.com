@@ -8,6 +8,8 @@ use App\Entity\Participant;
 use App\Form\ProfilFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -20,6 +22,19 @@ class ProfilController extends AbstractController
     {
         $form = $this->createForm(ProfilFormType::class, $user);
         $form->handleRequest($request);
+        /**
+         * @var UploadedFile $upload
+         */
+        $upload=$form->get('file')->getData();
+        if($upload){
+            $newFileName=uniqid().'.'.$upload->guessExtension();
+            try{
+                $upload->move($this->getParameter('upload_dir'),$newFileName);
+                $user->setImageName($newFileName);
+            }catch (FileException $e){
+                dd(($e->getMessage()));
+            }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
@@ -28,6 +43,9 @@ class ProfilController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+
+            }
+
             $user->setAdministrateur(false);
             $user->setActif(true);
             $em->persist($user);

@@ -27,3 +27,9 @@ h2{
     padding: 3%;
 }
 
+@media screen and (max-device-width : 320px){
+    .create{
+        display: none;
+    }
+    
+}

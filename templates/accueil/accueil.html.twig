@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="date-nom">
-        <p>Date du jour : {{ 'now' |date('d/m/Y') }}<br>
+        <p id="connection">Date du jour : {{ 'now' |date('d/m/Y') }}<br>
         Participant : {{ app.user.pseudo }}</p>
     </div>
 

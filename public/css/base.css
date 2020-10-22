@@ -7,6 +7,7 @@
 }
 
 footer{
+    margin-top: 15%;
     width: 100%;
     bottom: 0;
 }
@@ -19,6 +20,7 @@ body {
 }
 
 .main{
+
     flex: 1 0 auto;
 }
 

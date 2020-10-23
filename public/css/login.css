@@ -6,7 +6,7 @@
 
 }
  body{
-     background: url('../images/login.jpg');
+     background: url('../images/cocktails2.jpg');
      background-size: cover;
      font-family:'Public Sans', sans-serif;
 
@@ -16,7 +16,7 @@
     top:18%;
     text-align: center;
     color: white;
-    font-size: 70px;
+    font-size: 80px;
 }
  .rowLogin{
      display: flex;

@@ -25,7 +25,7 @@ class AccueilController extends AbstractController
 
     /**
      * @IsGranted("ROLE_USER")
-     * @Route("/accueil", name="accueil")
+     * @Route("/", name="accueil")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param SortieRepository $sortieRepo

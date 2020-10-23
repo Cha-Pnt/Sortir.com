@@ -5,9 +5,20 @@
 {% block body %}
     <div class="container">
         <div class="row">
+            <div class="row" style="margin-bottom: 10px">
+                {{ form_start(rechercheCampusForm) }}
+                <div class="col-md-9 col-lg-9">
+                    {{ form_widget(rechercheCampusForm.nom, {'attr':{'placeholder':'Search','class':'form-control'}}) }}
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    {{ form_widget(rechercheCampusForm.rechercher, {'attr':{'class':'btn btn-outline-primary btn-rounded btn-sm my-0'}}) }}
+                </div>
+                {{ form_end(rechercheCampusForm) }}
+            </div>
+        <div class="row">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Liste des villes</h3>
+                    <h3 class="panel-title">Liste des campus</h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">

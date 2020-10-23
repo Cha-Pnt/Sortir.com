@@ -22,6 +22,7 @@ class ProfilController extends AbstractController
      */
     public function index(Participant $user, EntityManagerInterface $em, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
+
             $form = $this->createForm(ProfilFormType::class, $user);
             $form->handleRequest($request);
             /**
@@ -36,24 +37,21 @@ class ProfilController extends AbstractController
                 } catch (FileException $e) {
                     dd(($e->getMessage()));
                 }
-
-
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $user->setPassword(
-                        $passwordEncoder->encodePassword(
-                            $user,
-                            $form->get('password')->getData()
-                        )
-                    );
-
-                }
-
+            }
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
                 $user->setAdministrateur(false);
                 $user->setActif(true);
                 $em->persist($user);
                 $em->flush();
                 return $this->Redirect('afficherProfil/' . $user->getId());
             }
+
             return $this->render('profil/index.html.twig', [
                 'formUser' => $form->createView()
             ]);
@@ -62,8 +60,7 @@ class ProfilController extends AbstractController
         /**
          * @Route("profil/afficherProfil/{id}", name="afficherProfil")
          */
-        public
-        function afficherProfil(Participant $user)
+        public function afficherProfil(Participant $user)
         {
             return $this->render('profil/afficherProfil.html.twig', [
                 'user' => $user

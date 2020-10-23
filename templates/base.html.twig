@@ -41,7 +41,7 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('accueil') }}">Accueil<span class="sr-only">(current)</span></a>
+                    <a class="nav-link " href="{{ path('accueil') }}">Accueil<span class="sr-only">(current)</span></a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="nav-item ">
@@ -51,7 +51,7 @@
                         <a class="nav-link" href="{{ path('admingerer_campus') }}">Campus</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="{{ path('adminindex') }}">ADMIN</a>
+                        <a class="nav-link active" href="{{ path('adminindex') }}">ADMIN</a>
                     </li>
                 {% endif %}
             </ul>

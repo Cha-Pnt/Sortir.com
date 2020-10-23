@@ -15,7 +15,7 @@
 <div class="nav">
     <a href="{{ path('accueil') }}"><h1>Sortir.com</h1></a>
     <div class="navbar">
-        <a class="nav-link " href="{{ path('accueil') }}">Accueil</a>
+        <a class="nav-link active" href="{{ path('accueil') }}">Accueil</a>
         {% if is_granted('ROLE_ADMIN') %}
             <a class="nav-link " href="{{ path('adminindex') }}">ADMIN</a>
         {% endif %}

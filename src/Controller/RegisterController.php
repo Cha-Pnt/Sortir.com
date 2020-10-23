@@ -43,7 +43,7 @@ class RegisterController extends AbstractController
             $user->setActif(true);
             $em->persist($user);
             $em->flush();
-            return $this->Redirect('register');
+            return $this->redirectToRoute('adminutilisateurs');
         }
 
         return $this->Render('security/register.html.twig', ['registrationUser' => $form->createView()]);

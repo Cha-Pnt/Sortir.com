@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Villes;
+use App\Form\RechercheVilleType;
 use App\Form\VillesType;
 use App\Repository\VillesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,11 +21,20 @@ class GererVillesController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/villes", name="gerer_villes")
      */
-    public function addVille(VillesRepository $villesRepository)
+    public function addVille(VillesRepository $villesRepository, Request $request)
     {
+        $rechercheVille = $this->createForm(RechercheVilleType::class);
+        $rechercheVille->handleRequest($request);
+        if ($rechercheVille->isSubmitted() && $rechercheVille->isValid() && !$rechercheVille['nom']->isEmpty()) {
+            $data= $rechercheVille['nom']->getData();
+            $villes = $villesRepository->findByName($data);
+        }else{
+            $villes = $villesRepository->findAll();
+        }
 
         return $this->render('gerer_villes/gererVilles.html.twig', [
-            'villes' => $villesRepository->findAll()
+            'rechercheVilleForm' => $rechercheVille->createView(),
+            'villes' => $villes
         ]);
     }
 

@@ -21,7 +21,7 @@ class FiltresSortieType extends AbstractType
         $builder
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
-                'placeholder' => 'TOUS',
+                'placeholder' => 'CAMPUS',
                 'choice_label' => 'nom',
                 'required' => false,
                 'empty_data' => null
@@ -30,30 +30,30 @@ class FiltresSortieType extends AbstractType
                 'label' => "Rechercher : ",
                 'required' => false,
                 'empty_data' => null,
-                'attr' => ['placeholder' => 'filter']
+                'attr' => ['placeholder' => 'Rechercher : par nom..']
             ])
             ->add('dateDebut', DateTimeType::class, [
-                'label' => "Entre ",
+                'label' => "Date de début ",
                 'required' => false,
                 'empty_data' => '',
                 'widget' => 'single_text'
             ])
             ->add('dateLimite', DateTimeType::class, [
-                'label' => " et ",
+                'label' => " Date limite d'inscription ",
                 'required' => false,
                 'empty_data' => '',
                 'widget' => 'single_text',
             ])
             ->add('organisateur', CheckboxType::class, [
-                'label' => "Sorties dont je suis l'organisateur/trice", 'required' => false
+                'label' => "Mes sorties", 'required' => false
             ])
             ->add('inscription', ChoiceType::class, [
                 'label' => ' ',
                 'placeholder'=>null,
                 'required' => false,
                 'choices' => [
-                    'Sorties auxquelles je suis inscrit' => 'oui',
-                    'Sorties auxquelles je ne suis pas inscrit' => 'non',
+                    'Mes inscriptions' => 'oui',
+                    'Non inscrit' => 'non',
                 ],
                 'choice_attr' => function ($choice, $key, $value) {
                     return ['class' => 'inscription_' . strtolower($value)];
@@ -63,7 +63,7 @@ class FiltresSortieType extends AbstractType
             ])
             ->add('etat', EntityType::class, [
                 'class' => Etat::class,
-                'placeholder' => 'TOUS',
+                'placeholder' => 'ETATS',
                 'choice_label' => 'libelle',
                 'required' => false,
                 'empty_data' => null,

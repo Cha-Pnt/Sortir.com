@@ -1,25 +1,198 @@
-.date-nom{
-    text-align: -webkit-right;
-    margin-right: 1%;
-}
-
-.container{
-    margin-bottom: 2%;
-}
-
-.button_side {
+.containsearch{
+    background-size: cover;
+    background: url("../images/cocktails.jpg") fixed top;
+    height: 320px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    align-content: center;
-    margin: 2vh 0;
+    min-width: 100%;
 }
 
-h2{
+.contain{
+    padding-left: 0;
+    padding-right: 0;
+}
+#filtres_sortie_search{
+    padding: 8%;
+    border-style: none;
+    border-radius: 3px;
+    width: 150%;
+    height: 35px;
+    opacity: 0.8;
+}
+.filtre h3{
+    color: cadetblue;
+}
+#labelSearch{
+    color: white;
     text-align: center;
+    font-size: 30px;
+}
+.nav{
+    padding-top: 1%;
+    min-width: 100%;
+    min-height: 8%;
+    background: white;
+}
+.nav h1{
+    margin-left: 20%;
+    color:cadetblue;
+    text-decoration: none;
+}
+.nav :hover{
+    text-decoration: none;
+}
+.navbar{
+    display: flex;
+    justify-content: end;
+    margin-left: 5%;
+}
+.navbar a{
+    color: cadetblue;
+    font-size: 20px;
+}
+.navbar a:hover{
+    background-color: cadetblue;
+    color: white;
+}
+.date-nom{
+    position: absolute;
+    right: 2%;
+    text-align: end;
+    color: cadetblue;
+}
+h1:hover{
+    text-decoration: none;
+}
+.filtres{
+    min-height: 40%;
+}
+.filtres label{
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+.filtre{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.filtrescontain{
+    padding: 3%;
+}
+#filtres_sortie_campus{
+    padding: 1%;
+    width: 50%;
+    border-radius: 3px;
+    border: cadetblue 1px solid;
+}
+#filtres_sortie_etat{
+    padding: 1%;
+    width: 50%;
+    border-radius: 3px;
+    border: cadetblue 1px solid;
 }
 
-.create{
-    margin-top: 2%;
+#filtres_sortie_dateLimite{
+    padding: 1%;
+    border: cadetblue 1px solid;
+    border-radius: 3px;
+    width: 50%;
+
+}
+#filtres_sortie_dateDebut{
+    padding: 1%;
+    border: cadetblue 1px solid;
+    border-radius: 3px;
+    width: 50%;
+}
+#filtres_sortie_organisateur{
+    font-size:40px;
+}
+#filtres_sortie_organisateur:checked + label{
+    background-color: #F5871F;
+}
+.inscription_non{
+    margin-left: 20px;
+}
+.button_side{
+    justify-content: space-evenly;
+}
+.button{
+    text-align: center;
+    border-radius: 3px;
+    background-color: cadetblue;
+    color:white;
+    border: cadetblue solid 1px;
+    width: 150px;
+    height: 40px;
+}
+.button:hover{
+    background-color: white ;
+    color:cadetblue;
+    text-decoration: none;
+}
+
+.listeSorties{
+    overflow: scroll;
+    max-height: 400px;
+}
+.listeSorties h3{
+    text-align: center;
     margin-bottom: 5%;
+    font-size: 40px;
+
+}
+.titreListe{
+    min-width: inherit;
+    justify-content: center;
+    margin-bottom: 5%;
+}
+.titreListe h3{
+    font-size: 40px;
+    color: cadetblue;
+}
+table{
+    width: inherit;
+}
+tr{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+    border: cadetblue solid 1px;
+    padding: 1%;
+    margin-bottom: 1%;
+}
+.intitules{
+    font-size: 20px;
+    justify-content: space-around;
+    border-bottom: solid 1px #212529;
+    margin-bottom: 1%;
+    width: inherit;
+}
+.colonnes{
+    visibility: hidden;
+    height: 10px;
+}
+.td{
+    width: 15%;
+    align-self: center;
+}
+.listeSorties a{
+    color: cadetblue;
+}
+.cloture{
+    margin-left: 5%;
+}
+.inscrits{
+    margin-left: 5%;
+}
+.etat{
+    margin-left: 4%;
+}
+.create{
+    margin-top: 1%;
+    text-align: left;
+    padding: 1%;
 }

@@ -50,7 +50,8 @@ class AdminController extends AbstractController
 
         }
         return $this->render('admin/modifierUtilisateur.html.twig',[
-            'userForm' => $form->createView()
+            'userForm' => $form->createView(),
+            'user' => $user
         ]);
     }
 }

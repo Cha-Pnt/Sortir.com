@@ -5,7 +5,17 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            {{ form(rechercheVilleForm) }}
+            <div class="row" style="margin-bottom: 10px">
+                {{ form_start(rechercheVilleForm) }}
+                <div class="col-md-9 col-lg-9">
+                {{ form_widget(rechercheVilleForm.nom, {'attr':{'placeholder':'Search','class':'form-control'}}) }}
+                </div>
+                <div class="col-md-3 col-lg-3">
+                {{ form_widget(rechercheVilleForm.rechercher, {'attr':{'class':'btn btn-outline-primary btn-rounded btn-sm my-0'}}) }}
+                </div>
+                {{ form_end(rechercheVilleForm) }}
+            </div>
+
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Liste des villes</h3>

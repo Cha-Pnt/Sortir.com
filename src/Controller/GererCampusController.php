@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Campus;
 use App\Form\CampusType;
+use App\Form\RechercheCampusType;
 use App\Repository\CampusRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,10 +23,20 @@ class GererCampusController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/campus", name="gerer_campus")
      */
-    public function index(CampusRepository $campusRepository)
+    public function index(CampusRepository $campusRepository,Request $request)
     {
+        $rechercheCampus = $this->createForm(RechercheCampusType::class);
+        $rechercheCampus->handleRequest($request);
+        if ($rechercheCampus->isSubmitted() && $rechercheCampus->isValid() && !$rechercheCampus['nom']->isEmpty()) {
+            $data= $rechercheCampus['nom']->getData();
+            $campus = $campusRepository->findByName($data);
+        }else{
+            $campus = $campusRepository->findAll();
+        }
+
         return $this->render('gerer_campus/index.html.twig', [
-            'campus' => $campusRepository->findAll()
+            'rechercheCampusForm' => $rechercheCampus->createView(),
+            'campus' => $campus
         ]);
     }
     /**
